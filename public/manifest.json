@@ -1,0 +1,10 @@
+{
+    "name": "Barabell - Training log",
+    "short_name": "Barbell",
+    "theme_color": "#6574cd",
+    "background_color": "#ffffff",
+    "display": "fullscreen",
+    "orientation": "portrait",
+    "scope": "/",
+    "start_url": "/"
+  }
