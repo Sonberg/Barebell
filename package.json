@@ -11,11 +11,11 @@
     "firebase": "^5.7.1",
     "lodash": "^4.17.11",
     "moment": "^2.23.0",
-    "one-rep-max": "^1.0.0",
     "vue": "^2.5.17",
     "vue-awesome": "^3.2.0",
     "vue-chartjs": "^3.4.0",
     "vue-router": "^3.0.1",
+    "vuefire": "^1.4.5",
     "vuetrend": "^0.3.2"
   },
   "devDependencies": {
