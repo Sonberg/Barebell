@@ -4,22 +4,81 @@ import Home from './views/Home.vue'
 
 Vue.use(Router)
 
-export default new Router({
+import {
+  auth
+} from '@/api/firebase'
+
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes: [
-    {
+  routes: [{
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+      path: '/workouts',
+      name: 'workouts',
+      component: () => import( /* webpackChunkName: "workouts" */ './views/Workouts.vue'),
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/workouts/:workout_id',
+      name: 'workout',
+      component: () => import( /* webpackChunkName: "workout" */ './views/Workout.vue'),
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/statistics',
+      name: 'statistics',
+      component: () => import( /* webpackChunkName: "statistics" */ './views/Statistics.vue'),
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/statistics/:exercise_id',
+      name: 'statistics-exercise',
+      component: () => import( /* webpackChunkName: "statistics-exercise" */ './views/Statistics.Exercise.vue'),
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import( /* webpackChunkName: "login" */ './views/auth/Login.vue')
+    },
+    {
+      path: '/sign-up',
+      name: 'sign-up',
+      component: () => import( /* webpackChunkName: "sing-up" */ './views/auth/Sign.Up.vue')
+    },
+    {
+      path: '*',
+      name: 'not-found',
+      component: () => import( /* webpackChunkName: "not-found" */ './views/Not.Found.vue')
     }
   ]
 })
+
+
+router.beforeEach((to, from, next) => {
+  const currentUser = auth.currentUser;
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+  if (requiresAuth && !currentUser) {
+    return next('login');
+  }
+
+  return next();
+});
+
+export default router;

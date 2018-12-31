@@ -1,29 +1,52 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+<div>
+    <div v-if="isAuthenticated" class="mb-8">
+        <div class="container mx-auto my-2 flex flex-row justify-between">
+            <div class="flex flex-row items-center">
+                <router-link to="/" class="font-bold p-4 text-xl text-black no-underline">Barebell</router-link>
+                <router-link to="/workouts" class="text-black p-4 font-semibold no-underline  flex flex-row items-center">
+                    <v-icon name="dumbbell" class="mr-2" />
+                    <span class="hidden sm:flex">Träningspass</span>
+                </router-link>
+                <router-link to="/statistics" class="text-black p-4 text-indigo font-semibold no-underline flex flex-row items-center">
+                    <v-icon name="chart-line" class="mr-2" />
+                    <span class="hidden sm:flex">Statistik</span>
+                </router-link>
+            </div>
+            <div class="flex items-center justify-center">
+                <v-icon name="user" class="text-black no-underline mr-4" v-if="user && user.displayName" />
+            </div>
+        </div>
     </div>
-    <router-view/>
-  </div>
+    <div class="container mx-auto px-4">
+        <router-view />
+    </div>
+</div>
 </template>
 
-<style lang="less">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+import {
+    userId,
+    db
+} from '@/api/firebase'
+
+export default {
+    data: () => ({
+        user: null
+    }),
+    computed: {
+        isAuthenticated() {
+            return this.user != null;
+        }
+    },
+    firestore() {
+        if (!userId) {
+            return
+        }
+
+        return {
+            user: db.collection('users').doc(userId)
+        }
     }
-  }
 }
-</style>
+</script>

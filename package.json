@@ -7,20 +7,24 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "chart.js": "^2.7.3",
+    "firebase": "^5.7.1",
+    "lodash": "^4.17.11",
+    "moment": "^2.23.0",
+    "one-rep-max": "^1.0.0",
     "vue": "^2.5.17",
-    "vue-router": "^3.0.1"
+    "vue-awesome": "^3.2.0",
+    "vue-chartjs": "^3.4.0",
+    "vue-router": "^3.0.1",
+    "vuetrend": "^0.3.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.1",
     "@vue/cli-service": "^3.0.1",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
+    "tailwindcss": "^0.7.3",
     "vue-template-compiler": "^2.5.17"
-  },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {}
-    }
   },
   "browserslist": [
     "> 1%",
