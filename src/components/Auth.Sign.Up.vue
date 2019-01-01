@@ -1,19 +1,16 @@
 <template>
-<div class="flex flex-col w-full md:w-3/5 border p-4 mx-auto">
-    <div>
-        <v-input type="text" v-model="displayName" class="w-full" label="Namn" />
-        <v-input type="email" v-model="email" class="w-full mt-4" label="Email" />
-        <v-input type="password" v-model="password" class="w-full mt-4" label="Lösenord" />
+<div>
+    <v-input type="text" v-model="displayName" class="w-full" label="Namn" />
+    <v-input type="email" v-model="email" class="w-full mt-4" label="Email" />
+    <v-input type="password" v-model="password" class="w-full mt-4" label="Lösenord" />
 
-        <div>
-            <i v-html="error && (errors[error.code] || error.code)"/>
+    <div>
+        <i v-html="error && (errors[error.code] || error.code)"/>
         </div>
             <div class="flex flex-row justify-end">
-                <router-link tag="button" class="m-2" to="login">Logga in</router-link>
                 <button class="m-2 bg-grey py-2 px-4 rounded" @click="signup">Skapa konto</button>
             </div>
         </div>
-</div>
 </template>
 
 <script>
@@ -21,7 +18,8 @@
 // auth/user-not-found
 
 import {
-    auth, db
+    auth,
+    db
 } from '@/api/firebase'
 
 const errors = {

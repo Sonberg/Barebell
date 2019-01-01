@@ -52,16 +52,6 @@ const router = new Router({
       }
     },
     {
-      path: '/login',
-      name: 'login',
-      component: () => import( /* webpackChunkName: "login" */ './views/auth/Login.vue')
-    },
-    {
-      path: '/sign-up',
-      name: 'sign-up',
-      component: () => import( /* webpackChunkName: "sing-up" */ './views/auth/Sign.Up.vue')
-    },
-    {
       path: '*',
       name: 'not-found',
       component: () => import( /* webpackChunkName: "not-found" */ './views/Not.Found.vue')
@@ -75,7 +65,7 @@ router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 
   if (requiresAuth && !currentUser) {
-    return next('login');
+    return next('/');
   }
 
   return next();

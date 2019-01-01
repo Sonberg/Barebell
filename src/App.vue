@@ -4,11 +4,11 @@
         <div class="container mx-auto my-2 flex flex-row justify-between">
             <div class="flex flex-row items-center">
                 <router-link to="/" class="font-bold p-4 text-xl text-black no-underline">Barebell</router-link>
-                <router-link to="/workouts" class="text-black p-4 font-semibold no-underline  flex flex-row items-center">
+                <router-link to="/workouts" class="main p-4 font-semibold no-underline  flex flex-row items-center">
                     <v-icon name="dumbbell" class="mr-2" />
                     <span class="hidden sm:flex">Träningspass</span>
                 </router-link>
-                <router-link to="/statistics" class="text-black p-4 text-indigo font-semibold no-underline flex flex-row items-center">
+                <router-link to="/statistics" class="main text-black p-4 font-semibold no-underline flex flex-row items-center">
                     <v-icon name="chart-line" class="mr-2" />
                     <span class="hidden sm:flex">Statistik</span>
                 </router-link>
@@ -43,10 +43,27 @@ export default {
         if (!userId) {
             return
         }
-
+        
         return {
             user: db.collection('users').doc(userId)
         }
     }
 }
 </script>
+
+<style lang="less" scoped>
+
+@tailwind preflight;
+
+a.main {
+  @apply .text-black;
+
+  &.router-link-active {
+     @apply .text-indigo;
+  }
+  
+}
+
+@tailwind utilities;
+
+</style>
