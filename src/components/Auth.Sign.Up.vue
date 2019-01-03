@@ -8,7 +8,7 @@
         <i v-html="error && (errors[error.code] || error.code)"/>
         </div>
             <div class="flex flex-row justify-end">
-                <button class="m-2 bg-grey py-2 px-4 rounded" @click="signup">Skapa konto</button>
+                <button class="mt-4 bg-indigo hover:bg-indigo-dark text-white py-3 px-6" @click="signup">Sign up</button>
             </div>
         </div>
 </template>

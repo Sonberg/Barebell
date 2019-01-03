@@ -3,7 +3,9 @@ import App from './App.vue'
 import router from './router'
 import VueFire from 'vuefire';
 import Trend from 'vuetrend';
+import VueMask from 'di-vue-mask'
 import Icon from 'vue-awesome/components/Icon'
+import moment from 'moment'
 import 'vue-awesome/icons'
 
 import {
@@ -16,8 +18,11 @@ Vue.config.productionTip = false
 import '@/assets/css/tailwind.css'
 import '@/global.js'
 
+Vue.prototype.moment = moment
+
 Vue.use(Trend)
 Vue.use(VueFire)
+Vue.use(VueMask)
 Vue.component('v-icon', Icon)
 
 let app;

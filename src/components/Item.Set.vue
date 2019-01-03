@@ -4,7 +4,7 @@
         <div class="hidden md:flex">
             <v-input label="Nummer" v-model="index" tag="p" v-if="index" class="mr-4 bg-white" />
         </div>
-        <v-input label="weight" type=number step="0.01" autofocus v-model="item.weight" class="w-24 mr-4" />
+        <v-input label="weight" type=number v-model="item.weight" class="w-24 mr-4" />
         <v-input label="reps"  type=number v-model="item.reps" class="w-24 mr-4" />
 
     </div>

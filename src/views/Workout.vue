@@ -3,7 +3,7 @@
     <input type="text" v-model="workout.name" class="text-3xl py-2 my-4 bg-grey-lightest font-semibold outline-none border-b-4 border-indigo-light focus:border-indigo-dark w-full" placeholder="Träningspass">
     <div class="flex w-full flex-col">
         <v-input type="date" v-model="date" label="Date"/>
-        <v-textarea v-model="workout.note" label="Notes" class="flex-1 h-36 mt-2 "/>
+        <v-textarea v-model="workout.note" label="Note" class="flex-1 h-36 mt-2 "/>
     </div>
     <item-exercise v-for="item in exercises" :workoutId="workoutId" :key="item.id" :item="item" class="w-full" />
     <add-exercise :add="add" class="w-full" />
@@ -42,13 +42,11 @@ export default {
     },
     computed: {
         date: {
-            get: function() {
-                  return this.formatDate(this.workout.date);
+            get: function() {                
+                  return moment(this.workout.date.toDate()).format('YYYY-MM-DD');
             },
             set: function(val) {
-                console.log(val);
-                
-                this.workout.date = val;
+                this.workout.date = moment(val).toDate();
             }
         },
         workoutId() {

@@ -40,22 +40,7 @@ export default {
             return values
         },
         correlation() {
-/*
-            let grouped = groupBy(this.setsWithoutNullValues, x => x.workoutId);
-            let values = this.setsWithoutNullValues.map(set => ({
-                y: oneRM(set),
-                x: moment(set.created.toDate()).diff(this.oldestDataset, 'days')
-            }));
-
-            console.table(values);
-
-            console.log(grouped);
-
-
-*/
             let values = this.data;
-
-            console.log(values);
             
 
             const n = values.length;

@@ -1,12 +1,12 @@
 <template>
 <div>
-    <v-input type="email" v-model="email" class="w-full mt-4" label="email" />
+    <v-input type="email" v-model="email" class="w-full" label="email" />
     <v-input type="password" v-model="password" class="w-full mt-4" label="lösenord" />
     <div>
         <i  v-html="error && (errors[error.code] || error.code)"/>
         </div>
             <div class="flex flex-row justify-end">
-                <button class="m-2 bg-grey py-2 px-4 rounded" @click="login">Logga in</button>
+                <button class="mt-4 bg-indigo hover:bg-indigo-dark text-white py-3 px-6" @click="login">Login</button>
             </div>
         </div>
 </template>

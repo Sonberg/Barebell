@@ -1,19 +1,19 @@
 <template>
-<div class="flex flex-col my-8">
-    <p class="text-4xl text-indigo font-semibold">
-        Test
-    </p>
-    <ul class="mt-4 text-xl text-grey-darker mb-2">
-        <li>Pearsson formula for correlation</li>
-        <li>Tracking personal records</li>
-    </ul>
-    <div class="w-1/2 mx-auto flex flex-col bg-white border border-b-3 mt-8">
-        <div class="px-4 py-2 flex flex-row justify-between">
-            <v-title v-html="'Create account'" />
+<div class="flex flex-col my-32">
+    <div class="font-semibold  p-4 w-full md:w-2/3 lg:w-3/5 mx-auto">
+        <v-label value="Barebell" class="text-center"/>
+        <p class="text-5xl text-indigo text-center mb-4 leading-normal">
+            A simple training log with focus on progression and statistics
+        </p>
+    </div>
 
-            <div class="flex flex-row justify-center items-center">
-                <button @click="tab = 'sign-up'" :disabled="tab == 'sign-up'" :class="classesFor('sign-up')">Bli medlem</button>
-                <button @click="tab = 'login'" :disabled="tab == 'login'" :class="classesFor('login')">Logga in</button>
+    <div class="w-full md:w-2/3 lg:w-3/5 mx-auto flex flex-col bg-white border border-b-3 mt-8">
+        <div class="px-4 py-2 flex flex-row justify-between flex-wrap items-center">
+            <v-title v-html="'Create account'" class="ml-2" />
+
+            <div class="flex flex-row justify-center items-center border border-indigo-lightest">
+                <button @click="tab = 'sign-up'" :disabled="tab == 'sign-up'" :class="classesFor('sign-up')">I'm a new user</button>
+                <button @click="tab = 'login'" :disabled="tab == 'login'" :class="classesFor('login')">Login</button>
             </div>
 
         </div>
@@ -33,7 +33,7 @@ export default {
     }),
     methods: {
         classesFor(tab) {
-            let classes = ['mx-2', 'px-6', 'py-2', 'text-grey-darkest', '', 'hover:bg-indigo hover:text-white'];
+            let classes = ['px-6', 'py-2', 'text-grey-darkest', 'focus:outline-none', 'hover:bg-indigo hover:text-white'];
 
             classes.push({
                 'bg-indigo-lightest': tab == this.tab

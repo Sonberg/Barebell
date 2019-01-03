@@ -1,5 +1,5 @@
 <template>
-<router-link tag="div" class="p-6 flex flex-col bg-white text-center" :to="url" v-if="sets && sets.length">
+<router-link tag="div" class="p-6 flex flex-col bg-white text-center border" :to="url" v-if="sets && sets.length">
     <div>
         <p v-html="exercise.group" class="uppercase text-xs text-grey-darkest mb-1" />
         <p v-html="exercise.name" class="text-xl" />
@@ -67,7 +67,7 @@ export default {
                 .collection('sets')
                 .where('exerciseId', '==', this.exercise.id)
                 .where('userId', '==', userId)
-                .orderBy('created')
+                .limit(20)
         }
     }
 }

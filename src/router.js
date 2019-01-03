@@ -14,10 +14,7 @@ const router = new Router({
   routes: [{
       path: '/',
       name: 'home',
-      component: Home,
-      meta: {
-        requiresAuth: true
-      }
+      component: Home
     },
     {
       path: '/workouts',

@@ -1,9 +1,9 @@
 <template>
 <div class="flex flex-col items-center flex-auto" v-if="workouts && workouts.length">
 
-    <line-chart ref="chart" :chart-data="collection" class="w-full" @hover="setActive" v-if="collection && collection.datasets" />
+    <line-chart ref="chart" :chart-data="collection" class="w-full" @hover="setLastSelected" v-if="collection && collection.datasets" />
 
-    <div class="flex flex-row bg-white p-4 w-full flex-wrap mt-4">
+    <div class="flex flex-row bg-white p-4 w-full flex-wrap mt-4 border">
 
         <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
             <v-label value="Period" />
@@ -18,15 +18,18 @@
             </div>
         </div>
 
-        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0 flex flex-row">
-            <div>
-                <input type="checkbox"  v-model="show.volym">
+        <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0 flex flex-row items-center">
+            <div class="flex-1 p-2">
+                <v-label value="Volym" for="volym" class="text-indigo" />
+                <input type="checkbox"  id="volym" v-model="show.volym">
             </div>
-            <div>
-                <input type="checkbox"  v-model="show.oneRm"
+            <div class="flex-1 p-2 mx-2">
+                <v-label value="1RM" for="oneRm" class="text-green"/>
+                <input type="checkbox" id="oneRm"  v-model="show.oneRm"
                 ></div>
-            <div>
-                <input type="checkbox"  v-model="show.highestWeight">
+            <div class="flex-1 p-2">
+                <v-label value="Highest weight" for="highestWeight" class="text-red"/>
+                <input type="checkbox" id="highestWeight"  v-model="show.highestWeight">
             </div>
         </div>
 
@@ -58,7 +61,8 @@
 <script>
 
 import {
-    db
+    db,
+    userId
 } from '@/api/firebase'
 
 import {
@@ -85,8 +89,11 @@ export default {
         },
         sets: [],
         collection: null,
-        active: null
+        lastSelected: null
     }),
+    props: {
+        exerciseId: String
+    },
     watch: {
         days(val) {
             this.$bind('sets', this.setsRef);
@@ -106,9 +113,6 @@ export default {
         }
     },
     computed: {
-        exerciseId() {
-            return this.$route.params.exercise_id;
-        },
         workouts() {
             let validSets = this.sets.filter(validSet);
 
@@ -117,7 +121,14 @@ export default {
                 .filter(x => x != null);
         },
         setsRef() {
-            return db.collection('sets').where('exerciseId', '==', this.exerciseId).where('created', '>', moment().add(this.days * -1, 'd').toDate());
+            return db
+                .collection('sets')
+                .where('exerciseId', '==', this.exerciseId)
+                .where('userId', '==', userId)
+                .where('created', '>', moment().add(this.days * -1, 'd').toDate());
+        },
+        active() {
+            return this.lastSelected || this.workouts[0];
         }
     },
     methods: {
@@ -172,23 +183,23 @@ export default {
         getVolymFrom(sets) {
             return sets.reduce((x, y) => x + volym(y), 0);
         },
-        setActive(val) {
+        setLastSelected(val) {
 
             let first = this.collection.datasets[0].data[0];
 
             if (!val) {
-                return this.active = first;
+                return this.lastSelected = first;
             }
 
             if (!this.collection) {
-                return this.active = first;
+                return this.lastSelected = first;
             }
 
             if (!this.collection.datasets[0]) {
-                return this.active = first;
+                return this.lastSelected = first;
             }
 
-            this.active = this.workouts[val._index];
+            this.lastSelected = this.workouts[val._index];
 
         },
         formatDate(date) {

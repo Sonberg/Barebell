@@ -1,10 +1,10 @@
 <template>
-<div class="px-8 py-6 mb-2 flex flex-row justify-between bg-white border">
+<div class="p-4 mb-2 flex flex-row justify-between bg-white border items-start">
     <div>
-        <p v-html="formatDate(item.date)" class="m-0 text-xs uppercase text-grey-dark" />
-        <router-link :to="'/workouts/' + item.id" tag="p" v-html="item.name || displayArray(groups) || 'Workout'" class="text-xl mt-2 font-semibold" />
+        <router-link :to="'/workouts/' + item.id" tag="p" v-html="item.name || displayArray(groups) || 'Workout'" class="text-xl m-0 font-semibold" />
         <p class="mt-2 text-sm">{{displayArray(exerciseNames)}}</p>
     </div>
+    <p v-html="formatDate(item.date)" class="m-0 text-xs uppercase text-grey-dark" />
 </div>
 </template>
 
