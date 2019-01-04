@@ -6,11 +6,15 @@
                 <router-link to="/" class="font-bold p-4 text-xl text-black no-underline">Barebell</router-link>
                 <router-link to="/workouts" class="main p-4 font-semibold no-underline  flex flex-row items-center">
                     <v-icon name="dumbbell" class="mr-2" />
-                    <span class="hidden sm:flex">Träningspass</span>
+                    <span class="hidden sm:flex">Workouts</span>
                 </router-link>
                 <router-link to="/statistics" class="main text-black p-4 font-semibold no-underline flex flex-row items-center">
                     <v-icon name="chart-line" class="mr-2" />
-                    <span class="hidden sm:flex">Statistik</span>
+                    <span class="hidden sm:flex">Statistics</span>
+                </router-link>
+                <router-link to="/statistics" class="main text-black p-4 font-semibold no-underline flex flex-row items-center">
+                    <v-icon name="clipboard-list" class="mr-2" />
+                    <span class="hidden sm:flex">Programs</span>
                 </router-link>
             </div>
             <div class="flex items-center justify-center">
@@ -82,7 +86,7 @@ a.main {
     @apply .text-black;
 
     &.router-link-active {
-        @apply .text-indigo;
+        @apply .text-indigo-dark;
     }
 
 }

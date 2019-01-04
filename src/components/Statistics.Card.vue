@@ -1,6 +1,6 @@
 <template>
-<div v-if="sets && sets.length && setsWithoutNullValues && setsWithoutNullValues.length">
-    <router-link tag="div" class="p-6 flex flex-col bg-white text-center border" :to="url">
+<div :class="{'opacity-50 hidden sm:block' : disabled }">
+    <div :class="['p-6 flex flex-col bg-white text-center border', disabled ? 'cursor-not-allowed': 'cursor-pointer']" @click="show">
         <div>
             <p v-html="exercise.group" class="uppercase text-xs text-grey-darkest mb-1" />
             <p v-html="exercise.name" class="text-xl" />
@@ -9,7 +9,7 @@
             <correlation-sets class="justify-center" :sets="sets" />
             <trend :data="data" :gradient="['#6574cd']" stroke-width="3" />
         </div>
-    </router-link>
+    </div>
 </div>
 </template>
 
@@ -45,6 +45,9 @@ export default {
             return 'statistics/' + this.exercise.id;
         },
         setsWithoutNullValues() {
+            if (!this.sets) {
+                return [];
+            }
             return this.sets.filter(validSet);
         },
         data() {
@@ -56,6 +59,9 @@ export default {
 
             return data;
         },
+        disabled() {
+            return !this.setsWithoutNullValues.length;
+        }
     },
     methods: {
         getOneRepMaxFrom(sets) {
@@ -66,6 +72,13 @@ export default {
 
             return max(values);
         },
+        show() {
+            if (this.disabled) {
+                return;
+            }
+
+            this.$router.push(this.url);
+        }
     },
     firestore() {
         return {

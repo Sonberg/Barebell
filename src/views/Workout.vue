@@ -1,12 +1,12 @@
 <template>
 <div v-if="workout" class="mb-4 flex flex-col items-start">
-    <input type="text" v-model="workout.name" class="text-3xl py-2 my-4 bg-grey-lightest font-semibold outline-none border-b-4 border-indigo-light focus:border-indigo-dark w-full" placeholder="Träningspass">
+    <input type="text" v-model="workout.name" class="text-3xl py-2 my-4 bg-grey-lightest font-semibold outline-none border-b-4 border-indigo-dark focus:border-indigo w-full" placeholder="Träningspass">
     <div class="flex w-full flex-col">
         <v-input type="date" v-model="date" label="Date"/>
         <v-textarea v-model="workout.note" label="Note" class="flex-1 h-36 mt-2 "/>
     </div>
     <item-exercise v-for="item in exercises" :workoutId="workoutId" :key="item.id" :item="item" class="w-full" />
-    <add-exercise :add="add" class="w-full" />
+    <add-exercise :add="add" class="self-end" />
 </div>
 </template>
 
@@ -22,7 +22,7 @@ import {
     debounce
 } from 'lodash'
 
-import { toMoment } from '@/helpers'
+import { displayDate } from '@/helpers'
 
 export default {
     data: () => ({
@@ -43,7 +43,7 @@ export default {
     computed: {
         date: {
             get: function() {      
-                  return toMoment(this.workout.date).format('YYYY-MM-DD');
+                  return displayDate(this.workout.date);
             },
             set: function(val) {
                 this.workout.date = moment(val).toDate();

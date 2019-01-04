@@ -5,16 +5,24 @@
             <p class="text-lg my-4 font-semibold" v-html="item.name" />
         </div>
         <div class="flex flex-row">
-            <button @click="add" class="flex flex-row items-center bg-indigo-dark text-white p-2"><v-icon name="plus"/></button>
+            <button @click="add" class="flex flex-row items-center bg-indigo-dark hover:bg-indigo text-white p-2"><v-icon name="plus"/></button>
         </div>
     </div>
     <div v-if="open" class="border-t-4">
-        <div class="flex flex-row p-4">
-            <div class="hidden sm:flex">
-                <v-input label="Antal set" class="mr-4" tag="p" :value="sets.length || 0" disabled />
+        <div class="flex flex-row p-4 flex-wrap items-end justify-between">
+            <div class="flex">
+                <div class="hidden sm:flex">
+                    <v-input label="Number of sets" class="mr-4" tag="p" :value="sets.length || 0" disabled />
+                </div>
+                <v-input label="Total volym" class="mr-4" tag="p" :value="volym" disabled />
+                <v-input label="Highest 1RM" tag="p" class="mr-4" :value="oneMax" disabled />
             </div>
-            <v-input label="Totalt volym" class="mr-4" tag="p" :value="volym" disabled />
-            <v-input label="Högsta 1RM" tag="p" class="mr-4" :value="oneMax" disabled />
+            <div class="flex">
+                <v-button tag="router-link" :to="editLink">
+                    <v-icon name="edit" class="sm:mr-2" />
+                    <span class="hidden sm:flex">Edit</span>
+                </v-button>
+            </div>
         </div>
         <item-set v-for="(set, index) in sets" :item="set" :index="index + 1" :key="set.id" />
     </div>
@@ -48,16 +56,6 @@ export default {
         sets: [],
         open: true
     }),
-    firestore() {
-        return {
-            sets: db
-                .collection('sets')
-                .where('exerciseId', '==', this.item.id)
-                .where('workoutId', '==', this.workoutId)
-                .where('userId', '==', userId)
-                .orderBy('created')
-        }
-    },
     computed: {
         volym() {
             return this.sets
@@ -69,8 +67,11 @@ export default {
             let values = this.sets
                 .map(oneRM)
                 .filter(x => !isNaN(x))
-            
+
             return (max(values) || 0).toFixed(2);
+        },
+        editLink() {
+            return `/workouts/${this.workoutId}/sets/${this.item.id}`
         }
     },
     methods: {
@@ -81,7 +82,7 @@ export default {
             });
 
             console.log(result);
-            
+
         },
         getOneMax(weight, reps) {
             return weight * (36 / (37 - reps));
@@ -89,6 +90,16 @@ export default {
         toggle() {
             this.open = !this.open;
         }
-    }
+    },
+    firestore() {
+        return {
+            sets: db
+                .collection('sets')
+                .where('exerciseId', '==', this.item.id)
+                .where('workoutId', '==', this.workoutId)
+                .where('userId', '==', userId)
+                .orderBy('created')
+        }
+    },
 }
 </script>

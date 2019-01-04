@@ -27,33 +27,7 @@ export default {
     computed: {
         exercises() {
             return [...this.privateExercises, ...this.publicExercises];
-        },
-        groups() {
-            return this.exercises
-                .filter(this.filter)
-        }
-    },
-    methods: {
-        filter(x) {
-            return !x.userId || x.userId == 'userId';
-        },
-        group(res, x) {
-            if (!res[x.group]) {
-                res[x.group] = [];
-            }
-
-            res[x.group].push(x);
-
-            return res;
         }
     }
 }
 </script>
-
-<style lang="less" scoped>
-.template {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 2em;
-}
-</style>

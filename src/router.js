@@ -33,6 +33,14 @@ const router = new Router({
       }
     },
     {
+      path: '/workouts/:workout_id/sets/:set_id',
+      name: 'workout-set',
+      component: () => import( /* webpackChunkName: "workout-set" */ './views/Workout.Set.vue'),
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: '/statistics',
       name: 'statistics',
       component: () => import( /* webpackChunkName: "statistics" */ './views/Statistics.vue'),

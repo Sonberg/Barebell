@@ -2,7 +2,7 @@
 <div class="flex flex-col">
     <div class="flex flex-row justify-between my-4 flex-wrap items-center">
             <v-title>Workouts</v-title>
-        <div class="text-black py-3 px-6 font-normal shadow-lg text-xs text-white bg-indigo hover:bg-indigo-dark no-underline uppercase rounded-full" @click="add">New workout</div>
+        <v-button  @click="add">New workout</v-button>
     </div>
     <div v-for="week in weeks" :key="week" class="mb-4">
         <v-label :value="titleFor(week)" />
@@ -52,7 +52,7 @@ export default {
     },
     methods: {
         titleFor(date) {
-            if (moment(date).week() == this.thisWeek) {
+            if (toMoment(date).week() == this.thisWeek) {
                 return 'Denna veckan'
             }
             return `${this.startOfWeek(date).format('YYYY-MM-DD')} - ${this.endOfWeek(date).format('YYYY-MM-DD')}`;

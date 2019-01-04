@@ -14,9 +14,9 @@
         <p v-html="oneRm" class="text-xl" />
     </div>
 
-    <div class=" my-2">
+    <div class="my-2" v-if="workout">
         <v-label value="Date" />
-        <p v-html="oneRm" class="text-xl" />
+        <p v-html="date" class="text-xl" />
     </div>
 </div>
 </template>
@@ -28,7 +28,8 @@ import {
 } from 'lodash'
 
 import {
-    oneRM
+    oneRM,
+    displayDate
 } from '@/helpers'
 
 import {
@@ -49,6 +50,9 @@ export default {
         },
         oneRm() {
             return oneRM(this.maxLift).toFixed(2);
+        },
+        date() {
+            return displayDate(this.workout.date);
         }
     },
     firestore() {

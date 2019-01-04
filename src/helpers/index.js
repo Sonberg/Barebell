@@ -1,6 +1,7 @@
 
 import { max } from 'lodash'
 
+// Statistics
 export const volym = ({ weight, reps }) => weight * reps;
 
 export const oneRM = ({ weight, reps }) => weight * (36 / (37 - reps));
@@ -9,4 +10,7 @@ export const highestOneRM = (sets) => Math.round(max(sets.map(oneRM)) || 0, 2);
 
 export const validSet = ({ weight, reps }) => weight > 0 && reps > 0;
 
-export const toMoment = (date) => moment(date.toDate ? date.toDate(): date)
+// Dates
+export const toMoment = (date) => moment(date.toDate ? date.toDate() : new Date(date))
+
+export const displayDate = (date) => toMoment(date).format('YYYY-MM-DD')
