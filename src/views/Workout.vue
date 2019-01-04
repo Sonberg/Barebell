@@ -22,7 +22,7 @@ import {
     debounce
 } from 'lodash'
 
-import moment from 'moment'
+import { toMoment } from '@/helpers'
 
 export default {
     data: () => ({
@@ -42,8 +42,8 @@ export default {
     },
     computed: {
         date: {
-            get: function() {                
-                  return moment(this.workout.date.toDate()).format('YYYY-MM-DD');
+            get: function() {      
+                  return toMoment(this.workout.date).format('YYYY-MM-DD');
             },
             set: function(val) {
                 this.workout.date = moment(val).toDate();

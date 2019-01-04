@@ -1,14 +1,16 @@
 <template>
-<router-link tag="div" class="p-6 flex flex-col bg-white text-center border" :to="url" v-if="sets && sets.length">
-    <div>
-        <p v-html="exercise.group" class="uppercase text-xs text-grey-darkest mb-1" />
-        <p v-html="exercise.name" class="text-xl" />
-    </div>
-    <div class="mt-4">
-        <correlation-sets class="justify-center" :sets="sets" />
-        <trend :data="data" :gradient="['#6574cd']" stroke-width="3" />
-    </div>
-</router-link>
+<div v-if="sets && sets.length && setsWithoutNullValues && setsWithoutNullValues.length">
+    <router-link tag="div" class="p-6 flex flex-col bg-white text-center border" :to="url">
+        <div>
+            <p v-html="exercise.group" class="uppercase text-xs text-grey-darkest mb-1" />
+            <p v-html="exercise.name" class="text-xl" />
+        </div>
+        <div class="mt-4">
+            <correlation-sets class="justify-center" :sets="sets" />
+            <trend :data="data" :gradient="['#6574cd']" stroke-width="3" />
+        </div>
+    </router-link>
+</div>
 </template>
 
 <script>
@@ -25,7 +27,11 @@ import {
     groupBy
 } from 'lodash'
 
-import { oneRM, volym, validSet } from '@/helpers'
+import {
+    oneRM,
+    volym,
+    validSet
+} from '@/helpers'
 
 export default {
     props: {

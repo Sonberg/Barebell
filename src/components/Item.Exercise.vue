@@ -1,5 +1,5 @@
 <template>
-<div class="my-4 bg-white border" v-if="item">
+<div class="mt-4 bg-white border" v-if="item">
     <div class="py-2 px-4 flex flex-row  justify-between items-center">
         <div class="flex flex-1" @click="toggle">
             <p class="text-lg my-4 font-semibold" v-html="item.name" />

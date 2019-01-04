@@ -18,7 +18,7 @@ Vue.config.productionTip = false
 import '@/assets/css/tailwind.css'
 import '@/global.js'
 
-Vue.prototype.moment = moment
+window.moment = moment
 
 Vue.use(Trend)
 Vue.use(VueFire)
@@ -26,7 +26,6 @@ Vue.use(VueMask)
 Vue.component('v-icon', Icon)
 
 let app;
-
 
 auth.onAuthStateChanged(() => {
   if (!app) {

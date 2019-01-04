@@ -3,16 +3,14 @@
     <div @click="open = !open" :class="['p-4 align-center font-semibold text-white hover:bg-indigo bg-indigo-light my-4', { 'bg-indigo': open }]">
         Lägg till övning
     </div>
-    <ul v-if="open" class="list-reset bg-indigo-lightest">
-        <li v-for="g in Object.keys(groups)" :key="g" class="py-2 px-4">
+    <div v-if="open" class="bg-indigo-lightest flex flex-row flex-wrap">
+        <div v-for="g in Object.keys(groups)" :key="g" class="p-4 w-1/3">
             <p v-html="g" class="text-sm text-grey-darkest font-semibold" />
-            <ul class="list-reset">
-                <li v-for="e in groups[g]" :key="e.id">
+                <div v-for="e in groups[g]" :key="e.id" class="my-2">
                     <button v-html="e.name" @click="add(e.id)"/>
-            </li>
-        </ul>
-    </li>
-</ul>
+            </div>
+        </div>
+    </div>
 </div>
 </template>
 

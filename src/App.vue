@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div v-if="isAuthenticated" class="mb-8">
+    <div v-if="isAuthenticated">
         <div class="container mx-auto my-2 flex flex-row justify-between">
             <div class="flex flex-row items-center">
                 <router-link to="/" class="font-bold p-4 text-xl text-black no-underline">Barebell</router-link>
@@ -14,12 +14,12 @@
                 </router-link>
             </div>
             <div class="flex items-center justify-center">
-                <v-icon name="user" class="text-black no-underline mr-4" v-if="user && user.displayName" />
+                <v-icon name="user" class="text-black no-underline mr-4" @click="logout" v-if="user && user.displayName" />
             </div>
         </div>
     </div>
     <div class="container mx-auto px-4">
-        <router-view />
+        <router-view :user="user" />
     </div>
 </div>
 </template>
@@ -27,43 +27,65 @@
 <script>
 import {
     userId,
+    auth,
     db
 } from '@/api/firebase'
 
 export default {
     data: () => ({
-        user: null
+        user: null,
+        userId
     }),
     computed: {
         isAuthenticated() {
             return this.user != null;
         }
     },
+    methods: {
+        onAuthStateChanged() {
+            if (!userId) {
+                return
+            }
+
+            this.userId = userId;
+            this.$bind('user', db.collection('users').doc(this.userId));
+        },
+        async logout() {
+            try {
+                await auth.signOut();
+            } catch (e) {
+                console.error(e);
+            }
+        }
+    },
+    created() {
+        auth.onAuthStateChanged(this.onAuthStateChanged);
+    },
     firestore() {
-        if (!userId) {
+        console.log(this.userId);
+
+        if (!this.userId) {
             return
         }
-        
+
         return {
-            user: db.collection('users').doc(userId)
+            user: db.collection('users').doc(this.userId)
         }
     }
 }
 </script>
 
 <style lang="less" scoped>
-
 @tailwind preflight;
 
 a.main {
-  @apply .text-black;
+    @apply .text-black;
 
-  &.router-link-active {
-     @apply .text-indigo;
-  }
-  
+    &.router-link-active {
+        @apply .text-indigo;
+    }
+
 }
 
 @tailwind utilities;
-
 </style>

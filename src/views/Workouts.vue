@@ -1,8 +1,8 @@
 <template>
 <div class="flex flex-col">
-    <div class="flex flex-row justify-between">
-        <v-title class="hidden sm:flex">Workouts</v-title>
-        <div class="text-black py-3 px-6 m-4 font-normal shadow-lg text-xs text-white bg-indigo hover:bg-indigo-dark no-underline uppercase rounded-full" @click="add">New workout</div>
+    <div class="flex flex-row justify-between my-4 flex-wrap items-center">
+            <v-title>Workouts</v-title>
+        <div class="text-black py-3 px-6 font-normal shadow-lg text-xs text-white bg-indigo hover:bg-indigo-dark no-underline uppercase rounded-full" @click="add">New workout</div>
     </div>
     <div v-for="week in weeks" :key="week" class="mb-4">
         <v-label :value="titleFor(week)" />
@@ -18,7 +18,7 @@ import {
     createWorkout
 } from '@/api/firebase'
 
-import moment from 'moment'
+import { toMoment } from '@/helpers';
 
 import {
     groupBy,
@@ -62,10 +62,10 @@ export default {
             this.$router.push(`workouts/${result.id}`)
         },
         startOfWeek(date) {
-            return moment(date).startOf('week').add(1, 'days');
+            return toMoment(date).startOf('week').add(1, 'days');
         },
         endOfWeek(date) {
-            return moment(date).endOf('week');
+            return toMoment(date).endOf('week');
         }
     },
     firestore() {

@@ -1,5 +1,5 @@
 <template>
-<div>
+<form  @submit="signup">
     <v-input type="text" v-model="displayName" class="w-full" label="Namn" />
     <v-input type="email" v-model="email" class="w-full mt-4" label="Email" />
     <v-input type="password" v-model="password" class="w-full mt-4" label="Lösenord" />
@@ -8,9 +8,9 @@
         <i v-html="error && (errors[error.code] || error.code)"/>
         </div>
             <div class="flex flex-row justify-end">
-                <button class="mt-4 bg-indigo hover:bg-indigo-dark text-white py-3 px-6" @click="signup">Sign up</button>
+                <button class="mt-4 bg-indigo hover:bg-indigo-dark text-white py-3 px-6">Sign up</button>
             </div>
-        </div>
+        </form>
 </template>
 
 <script>
@@ -38,7 +38,10 @@ export default {
         errors: errors
     }),
     methods: {
-        async signup() {
+        async signup(e) {
+
+            e.preventDefault();
+
             try {
                 // create account
                 await auth.createUserWithEmailAndPassword(this.email, this.password);

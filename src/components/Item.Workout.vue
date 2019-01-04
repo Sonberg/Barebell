@@ -2,18 +2,20 @@
 <div class="p-4 mb-2 flex flex-row justify-between bg-white border items-start">
     <div>
         <router-link :to="'/workouts/' + item.id" tag="p" v-html="item.name || displayArray(groups) || 'Workout'" class="text-xl m-0 font-semibold" />
-        <p class="mt-2 text-sm">{{displayArray(exerciseNames)}}</p>
+        <p class="mt-2 text-sm" v-if="exerciseNames && exerciseNames.length">{{displayArray(exerciseNames)}}</p>
     </div>
     <p v-html="formatDate(item.date)" class="m-0 text-xs uppercase text-grey-dark" />
 </div>
 </template>
 
 <script>
-import moment from 'moment';
-
 import {
     db
 } from '@/api/firebase'
+
+import {
+    toMoment
+} from '@/helpers'
 
 import {
     uniq
@@ -28,7 +30,7 @@ export default {
     }),
     methods: {
         formatDate(date) {
-            return moment(date).format('Y-MM-DD')
+            return toMoment(date).format('Y-MM-DD')
         },
         displayArray(arr) {
             
