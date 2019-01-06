@@ -1,12 +1,28 @@
 <template>
-    <component :is="tag || 'button'" :to="to" v-on="$listeners" v-bind="$props" class="flex items-center bg-indigo-dark text-white p-3 no-underline hover:bg-indigo font-semibold text-xs uppercase"><slot/></component>
+    <component :is="tag" :to="to" v-on="$listeners" :class="classes"><slot/></component>
 </template>
 
 <script>
 export default {
     props: {
-        tag: String,
+        tag: {
+            type: String,
+            default: 'button'
+        },
+        text: {
+            type: String,
+            default: 'white'
+        },
+        background: {
+            type: String,
+            default: 'indigo-dark'
+        },
         to: {}
+    },
+    computed: {
+        classes() {
+            return `flex items-center bg-${this.background} text-${this.text} p-3 no-underline hover:text-white hover:bg-indigo font-semibold text-xs uppercase`
+        }
     },
     created() {
         console.log(this);

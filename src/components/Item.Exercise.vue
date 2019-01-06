@@ -9,7 +9,7 @@
         </div>
     </div>
     <div v-if="open" class="border-t-4">
-        <div class="flex flex-row p-4 flex-wrap items-end justify-between">
+        <div class="flex flex-row p-4 flex-wrap items-center justify-between">
             <div class="flex">
                 <div class="hidden sm:flex">
                     <v-input label="Number of sets" class="mr-4" tag="p" :value="sets.length || 0" disabled />
@@ -17,10 +17,15 @@
                 <v-input label="Total volym" class="mr-4" tag="p" :value="volym" disabled />
                 <v-input label="Highest 1RM" tag="p" class="mr-4" :value="oneMax" disabled />
             </div>
-            <div class="flex">
-                <v-button tag="router-link" :to="editLink">
+            <div class="flex my-2">
+                <v-button tag="router-link" class="mr-2" :to="editLink">
                     <v-icon name="edit" class="sm:mr-2" />
                     <span class="hidden sm:flex">Edit</span>
+                </v-button>
+
+                <v-button tag="router-link" :to="statisticsLink">
+                    <v-icon name="chart-line" class="sm:mr-2" />
+                    <span class="hidden sm:flex">Statistics</span>
                 </v-button>
             </div>
         </div>
@@ -72,6 +77,9 @@ export default {
         },
         editLink() {
             return `/workouts/${this.workoutId}/sets/${this.item.id}`
+        },
+        statisticsLink() {
+            return `/statistics/${this.item.id}`
         }
     },
     methods: {

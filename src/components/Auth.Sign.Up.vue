@@ -7,8 +7,9 @@
     <div>
         <i v-html="error && (errors[error.code] || error.code)"/>
         </div>
-            <div class="flex flex-row justify-end">
-                <button class="mt-4 bg-indigo hover:bg-indigo-dark text-white py-3 px-6">Sign up</button>
+            <div class="flex flex-row justify-end mt-4">
+                <slot></slot>
+                <v-button>Sign up</v-button>
             </div>
         </form>
 </template>
