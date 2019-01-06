@@ -1,13 +1,13 @@
 <template>
 <form @submit="login">
-    <v-input type="email" v-model="email" class="w-full" label="email" />
-    <v-input type="password" v-model="password" class="w-full mt-4" label="lösenord" />
+    <a-input type="email" v-model="email" class="w-full" label="email" />
+    <a-input type="password" v-model="password" class="w-full mt-4" label="lösenord" />
     <div>
         <i  v-html="error && (errors[error.code] || error.code)"/>
         </div>
             <div class="flex flex-row justify-end mt-4">
                 <slot></slot>
-                <v-button>Login</v-button>
+                <a-button>Login</a-button>
             </div>
         </form>
 </template>

@@ -1,15 +1,15 @@
 <template>
 <form  @submit="signup">
-    <v-input type="text" v-model="displayName" class="w-full" label="Namn" />
-    <v-input type="email" v-model="email" class="w-full mt-4" label="Email" />
-    <v-input type="password" v-model="password" class="w-full mt-4" label="Lösenord" />
+    <a-input type="text" v-model="displayName" class="w-full" label="Namn" />
+    <a-input type="email" v-model="email" class="w-full mt-4" label="Email" />
+    <a-input type="password" v-model="password" class="w-full mt-4" label="Lösenord" />
 
     <div>
         <i v-html="error && (errors[error.code] || error.code)"/>
         </div>
             <div class="flex flex-row justify-end mt-4">
                 <slot></slot>
-                <v-button>Sign up</v-button>
+                <a-button>Sign up</a-button>
             </div>
         </form>
 </template>

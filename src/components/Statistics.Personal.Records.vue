@@ -1,7 +1,7 @@
 <template>
 <div class="bg-white border" v-if="keys && keys.length">
     <div class="border-b-4 p-4">
-        <v-title :size="2">Personal records</v-title>
+        <a-title :size="2">Personal records</a-title>
     </div>
     <div>
         <statistics-personal-records-item v-for="key in keys" :key="key" :reps="key" :sets="groupedByReps[key]"/>

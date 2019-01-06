@@ -1,6 +1,6 @@
 <template>
 <div class="flex flex-col">
-    <v-title>Statistics</v-title>
+    <a-title>Statistics</a-title>
     <div class="flex flex-wrap -mx-2">
         <statistics-card v-for="exercise in exercises" :key="exercise.id" :exercise="exercise" class="w-full sm:w-1/2 md:w-1/3 p-2" />
     </div>

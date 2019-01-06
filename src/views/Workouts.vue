@@ -1,11 +1,11 @@
 <template>
 <div class="flex flex-col">
     <div class="flex flex-row justify-between my-4 flex-wrap items-center">
-            <v-title>Workouts</v-title>
-        <v-button  @click="add">New workout</v-button>
+            <a-title>Workouts</a-title>
+        <a-button  @click="add">New workout</a-button>
     </div>
     <div v-for="week in weeks" :key="week" class="mb-4">
-        <v-label :value="titleFor(week)" />
+        <a-label :value="titleFor(week)" />
         <item-workout v-for="workout in groupedByWeek[week]" :item="workout" :key="workout.id" />
     </div>
 </div>

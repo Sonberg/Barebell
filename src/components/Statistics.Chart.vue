@@ -6,7 +6,7 @@
     <div class="flex flex-row bg-white p-4 w-full flex-wrap mt-4 border">
 
         <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-            <v-label value="Period" />
+            <a-label value="Period" />
             <div class="relative">
                 <select v-model="days" class="block appearance-none w-full bg-grey-lightest rounded-none border-2 border-grey-lighter text-grey-darker py-3 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-grey">
                 <option value="31">One month</option>
@@ -20,15 +20,15 @@
 
         <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0 flex flex-row items-center">
             <div class="flex-1 p-2 flex flex-col items-center">
-                <v-label value="Volym" for="volym" class="text-indigo" />
+                <a-label value="Volym" for="volym" class="text-indigo" />
                 <input type="checkbox"  id="volym" v-model="show.volym">
             </div>
             <div class="flex-1 p-2 mx-2 flex flex-col items-center">
-                <v-label value="1RM" for="oneRm" class="text-green"/>
+                <a-label value="1RM" for="oneRm" class="text-green"/>
                 <input type="checkbox" id="oneRm"  v-model="show.oneRm"
                 ></div>
             <div class="flex-1 p-2 flex flex-col items-center">
-                <v-label value="Highest weight" for="highestWeight" class="text-red"/>
+                <a-label value="Highest weight" for="highestWeight" class="text-red"/>
                 <input type="checkbox" id="highestWeight"  v-model="show.highestWeight">
             </div>
         </div>
@@ -38,19 +38,19 @@
         <div class="flex flex-row p-4 w-full flex-wrap mt-4" v-if="active">
 
             <div class="w-full  md:w-1/4 sm:w-1/2 px-3 mb-6 md:mb-0 flex flex-col items-center" v-show="active.oneRm">
-                <v-label value="1RM" />
+                <a-label value="1RM" />
                 <p class="py-3 text-3xl font-semibold" v-html="active.oneRm + ' kg'" />
             </div>
             <div class="w-full md:w-1/4 sm:w-1/2 px-3 mb-6 md:mb-0 flex flex-col items-center" v-show="active.created">
-                <v-label value="Date" />
+                <a-label value="Date" />
                 <p class="py-3 text-3xl font-semibold" v-html="formatDate(active.created)" />
             </div>
             <div class="w-full sm:w-1/2 md:w-1/4 px-3 mb-6 md:mb-0 flex flex-col items-center" v-show="active.volym">
-                <v-label value="Volym" />
+                <a-label value="Volym" />
                 <p class="py-3 text-3xl font-semibold" v-html="active.volym + ' kg'" />
             </div>
             <div class="w-full sm:w-1/2 md:w-1/4 px-3 mb-6 md:mb-0 flex flex-col items-center">
-                <v-label value="Correlation for period" />
+                <a-label value="Correlation for period" />
                 <correlation-sets class="justify-start text-3xl" :sets="sets" />
             </div>
         </div>

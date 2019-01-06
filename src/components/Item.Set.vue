@@ -2,10 +2,10 @@
 <div class="flex flex-row justify-between p-4 border-t" v-if="item">
     <div class="flex flex-row">
         <div class="hidden md:flex">
-            <v-input label="Nummer" v-model="index" tag="p" v-if="index" class="mr-4 bg-white" />
+            <a-input label="Nummer" v-model="index" tag="p" v-if="index" class="mr-4 bg-white" />
         </div>
-        <v-input label="weight" type=number v-model="item.weight" class="w-24 mr-4" />
-        <v-input label="reps"  type=number v-model="item.reps" class="w-24 mr-4" />
+        <a-input label="weight" type=number v-model="item.weight" class="w-24 mr-4" />
+        <a-input label="reps"  type=number v-model="item.reps" class="w-24 mr-4" />
 
     </div>
     <button @click="remove" class="text-indigo-dark mt-4"><v-icon name="minus"/></button>

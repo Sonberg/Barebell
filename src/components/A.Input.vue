@@ -2,6 +2,8 @@
 export default {
     props: {
         label: String,
+        tag: String,
+        type: String,
         autofocus: Boolean,
         value: {}
     },
@@ -21,15 +23,18 @@ export default {
                 class: "flex flex-col"
             },
             [
-                h("v-label", {
+                h("a-label", {
                     props: {
                         value: this.label
                     }
                 }),
-                h('textarea', {
+                h(
+                    this.tag || 'input', {
                         class: this.inputClasses,
                         ref: 'input',
-                        domProps: this.$props,
+                        domProps: Object.assign(this.$props, {
+                            value: this.value
+                        }),
                         on: {
                             input: e => this.$emit('input', e.target.value)
                         }

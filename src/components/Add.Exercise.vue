@@ -1,8 +1,8 @@
 <template>
 <div>
-    <v-button @click="open = !open" class="mt-4">
+    <a-button @click="open = !open" class="mt-4">
         Add exercise
-    </v-button>
+    </a-button>
     <div v-if="open" class="bg-indigo-lightest flex flex-row flex-wrap">
         <div v-for="g in Object.keys(groups)" :key="g" class="p-4 w-1/3">
             <p v-html="g" class="text-sm text-grey-darkest font-semibold" />
