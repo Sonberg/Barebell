@@ -1,12 +1,12 @@
 <template>
 <div class="flex flex-col">
-    <div class="flex flex-row justify-between my-4 flex-wrap items-center">
-            <a-title>Workouts</a-title>
+    <div class="flex flex-row justify-between flex-wrap items-center">
+        <a-title>Workouts</a-title>
         <a-button  @click="add">New workout</a-button>
     </div>
     <div v-for="week in weeks" :key="week" class="mb-4">
         <a-label :value="titleFor(week)" />
-        <item-workout v-for="workout in groupedByWeek[week]" :item="workout" :key="workout.id" />
+        <m-workout v-for="workout in groupedByWeek[week]" :item="workout" :key="workout.id" />
     </div>
 </div>
 </template>
@@ -48,13 +48,23 @@ export default {
         },
         thisWeek() {
             return moment().week();
+        },
+        lastWeek() {
+            return moment().add(-1, 'week').endOf('week').week();
         }
     },
     methods: {
         titleFor(date) {
-            if (toMoment(date).week() == this.thisWeek) {
-                return 'Denna veckan'
+            let week = toMoment(date).week();
+
+            if (week === this.thisWeek) {
+                return 'This week'
             }
+
+            if (week === this.lastWeek) {
+                return 'Last week'
+            }
+
             return `${this.startOfWeek(date).format('YYYY-MM-DD')} - ${this.endOfWeek(date).format('YYYY-MM-DD')}`;
         },
         async add() {

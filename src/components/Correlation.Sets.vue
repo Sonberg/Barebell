@@ -1,7 +1,8 @@
 <template>
 <div :class="['flex flex-row items-center py-2', {'text-green': correlation > 0, 'text-red': correlation < 0 }]">
     <v-icon name="sort-up" v-if="correlation > 0" />
-    <v-icon name="sort-down" v-if="correlation < 0" />
+    <v-icon name="sort-down" v-else-if="correlation < 0" />
+    <v-icon name="sort" v-else/>
     <p class="font-semibold ml-2" v-html="correlation + ' %'" />
 </div>
 </template>

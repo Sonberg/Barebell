@@ -1,11 +1,11 @@
 <template>
 <div v-if="workout" class="mb-4 flex flex-col items-start">
-    <input type="text" v-model="workout.name" class="text-3xl py-2 my-4 bg-grey-lightest font-semibold outline-none border-b-4 border-indigo-dark focus:border-indigo w-full" placeholder="Träningspass">
+    <input type="text" v-model="workout.name" class="text-3xl rounded-none py-2 my-4 bg-grey-lightest font-semibold outline-none border-b-4 border-indigo-dark focus:border-indigo w-full" placeholder="Träningspass">
     <div class="flex w-full flex-col">
-        <a-input type="date" v-model="date" label="Date"/>
+        <a-input type="date" v-model="date" label="Date" :max="today"/>
         <a-textarea v-model="workout.note" label="Note" class="flex-1 h-36 mt-2 "/>
     </div>
-    <item-exercise v-for="item in exercises" :workoutId="workoutId" :key="item.id" :item="item" class="w-full" />
+    <o-exercise v-for="item in exercises" :workoutId="workoutId" :key="item.id" :item="item" class="w-full" />
     <add-exercise :add="add" class="self-end" />
 </div>
 </template>
@@ -22,7 +22,7 @@ import {
     debounce
 } from 'lodash'
 
-import { displayDate } from '@/helpers'
+import { inputDate } from '@/helpers'
 
 export default {
     data: () => ({
@@ -43,11 +43,14 @@ export default {
     computed: {
         date: {
             get: function() {      
-                  return displayDate(this.workout.date);
+                  return inputDate(this.workout.date);
             },
             set: function(val) {
                 this.workout.date = moment(val).toDate();
             }
+        },
+        today() {
+            return inputDate(moment());
         },
         workoutId() {
             return this.$route.params.workout_id;

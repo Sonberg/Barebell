@@ -35,6 +35,17 @@ export const createSet = ({ exerciseId, workoutId, reps, weight }) => db.collect
 export const updateSet = ({ id, weight, reps }) => db.collection('sets').doc(id).update({ weight, reps, userId, updated: moment().format() });
 export const deleteSet = (id) => db.collection('sets').doc(id).delete();
 
+
+// Log
+export const createLog = ({}) => null
+export const updateLog = ({ id, exercises, workoutId }) => db.collection('logs').doc(id).update({
+    userId,
+    workoutId,
+    exercises,
+    updated: moment().toDate() 
+});
+export const deleteLog = (id) => db.collection('logs').doc(id).delete();
+
 // Workout
 export const createWorkout = ({ name, exercises, note } = {}) => db.collection('workouts').add({ 
     userId, 

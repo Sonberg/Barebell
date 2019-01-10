@@ -1,20 +1,20 @@
 <template>
 <div class="flex flex-row border-t py-4 px-8 justify-start flex-wrap" v-if="sets && sets.length">
-    <div class="mr-16 my-2">
+    <div class="w-1/2 md:w-1/4 my-2 text-center">
         <a-label value="reps" />
         <p v-html="reps" class="text-xl" />
     </div>
-    <div class="mr-16 my-2">
+    <div class="w-1/2 md:w-1/4 my-2 text-center">
         <a-label value="Weight" />
         <p v-html="maxLift.weight" class="text-xl" />
     </div>
 
-    <div class="mr-16 my-2">
+    <div class="w-1/2 md:w-1/4 my-2 text-center">
         <a-label value="1RM" />
         <p v-html="oneRm" class="text-xl" />
     </div>
 
-    <div class="my-2" v-if="workout">
+    <div class="w-1/2 md:w-1/4 my-2 text-center" v-if="workout">
         <a-label value="Date" />
         <p v-html="date" class="text-xl" />
     </div>

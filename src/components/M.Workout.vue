@@ -4,7 +4,7 @@
         <router-link :to="'/workouts/' + item.id" tag="p" v-html="item.name || displayArray(groups) || 'Workout'" class="text-xl m-0 font-semibold" />
         <p class="mt-2 text-sm" v-if="exerciseNames && exerciseNames.length">{{displayArray(exerciseNames)}}</p>
     </div>
-    <p v-html="formatDate(item.date)" class="m-0 text-xs uppercase text-grey-dark" />
+    <p v-html="displayDate(item.date)" class="m-0 text-xs uppercase text-grey-dark" />
 </div>
 </template>
 
@@ -14,7 +14,9 @@ import {
 } from '@/api/firebase'
 
 import {
-    toMoment
+    toMoment,
+    displayDate,
+    displayArray
 } from '@/helpers'
 
 import {
@@ -26,26 +28,10 @@ export default {
         item: Object
     },
     data: () => ({
-        exercises: []
+        exercises: [],
+        displayDate,
+        displayArray
     }),
-    methods: {
-        formatDate(date) {
-            return toMoment(date).format('Y-MM-DD')
-        },
-        displayArray(arr) {
-            
-            if (arr.length == 1) {
-                return arr[0];
-            }
-
-            let val = arr.splice(0, arr.length - 1).join(', ');
-
-            if (!arr.length) {
-                return val;
-            }         
-            return `${val} & ${arr[0]}`;
-        }
-    },
     computed: {
         workoutExercises() {
             return this.exercises.filter(x => this.item.exercises.indexOf(x.id) != -1);

@@ -6,13 +6,13 @@
 export default {
     props: {
         size: {
-            default: 3,
-            type: Number
+            default: '3xl',
+            type: String
         }
     },
     computed: {
         className() {
-            return `text-${this.size}xl my-4 font-semibold`;
+            return `text-${this.size} my-4 font-semibold`;
         }
     }
 }

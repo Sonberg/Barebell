@@ -84,6 +84,11 @@ export default {
                         }
                     }]
                 },
+                elements: {
+                    point: {
+                        radius: 0
+                    }
+                },
                 legend: {
                     display: false
                 },

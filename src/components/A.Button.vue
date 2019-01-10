@@ -21,12 +21,8 @@ export default {
     },
     computed: {
         classes() {
-            return `flex items-center bg-${this.background} text-${this.text} p-3 no-underline hover:text-white hover:bg-indigo font-semibold text-xs uppercase`
+            return `flex items-center bg-${this.background} text-${this.text} p-3 no-underline rounded-none hover:text-white hover:bg-indigo font-semibold text-xs uppercase`
         }
-    },
-    created() {
-        console.log(this);
-        
     }
 }
 </script>

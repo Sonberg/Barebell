@@ -1,35 +1,33 @@
 <template>
 <div class="mt-4 bg-white border" v-if="item">
-    <div class="py-2 px-4 flex flex-row  justify-between items-center">
-        <div class="flex flex-1" @click="toggle">
-            <p class="text-lg my-4 font-semibold" v-html="item.name" />
-        </div>
-        <div class="flex flex-row">
-            <button @click="add" class="flex flex-row items-center bg-indigo-dark hover:bg-indigo text-white p-2"><v-icon name="plus"/></button>
+    <div class="px-4 flex flex-row  justify-between items-center" @click="toggle">
+        <a-title size="xl" v-html="item.name"/>
+        <div class="flex flex-row" v-if="false">
+            <div class="hidden sm:flex flex-col">
+                <a-label value="Number of sets"/>
+                <p v-html="sets.length || 0" />
+            </div>
+            <p label="Total volym" class="mr-4" tag="p" :value="volym" disabled />
+            <p label="Highest 1RM" tag="p" :value="oneMax" disabled />
         </div>
     </div>
     <div v-if="open" class="border-t-4">
-        <div class="flex flex-row p-4 flex-wrap items-center justify-between">
-            <div class="flex">
-                <div class="hidden sm:flex">
-                    <a-input label="Number of sets" class="mr-4" tag="p" :value="sets.length || 0" disabled />
-                </div>
-                <a-input label="Total volym" class="mr-4" tag="p" :value="volym" disabled />
-                <a-input label="Highest 1RM" tag="p" class="mr-4" :value="oneMax" disabled />
-            </div>
-            <div class="flex my-2">
-                <a-button tag="router-link" class="mr-2" :to="editLink">
-                    <v-icon name="edit" class="sm:mr-2" />
-                    <span class="hidden sm:flex">Edit</span>
-                </a-button>
+        <m-exercise-set v-for="(set, index) in sets" :item="set" :index="index + 1" :key="set.id" />
 
-                <a-button tag="router-link" :to="statisticsLink">
-                    <v-icon name="chart-line" class="sm:mr-2" />
-                    <span class="hidden sm:flex">Statistics</span>
-                </a-button>
+        <div class="flex flex-row justify-between p-4 border-t">
+            <div></div>
+            <div class="flex flex-row">
+                <a-icon-button name="edit" tag="router-link" class="mr-2" :to="editLink">
+                    Edit
+                </a-icon-button>
+                <a-icon-button tag="router-link" name="chart-line" class="mr-2" :to="statisticsLink">
+                    Statistics
+                </a-icon-button>
+                <a-icon-button name="plus" @click="add">
+                    Add set
+                </a-icon-button>
             </div>
         </div>
-        <item-set v-for="(set, index) in sets" :item="set" :index="index + 1" :key="set.id" />
     </div>
 </div>
 </template>
@@ -88,12 +86,6 @@ export default {
                 exerciseId: this.item.id,
                 workoutId: this.$route.params.workout_id
             });
-
-            console.log(result);
-
-        },
-        getOneMax(weight, reps) {
-            return weight * (36 / (37 - reps));
         },
         toggle() {
             this.open = !this.open;

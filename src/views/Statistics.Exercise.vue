@@ -1,33 +1,67 @@
 <template>
 <div class="flex flex-col mb-16">
-    <div class="flex flex-row justify-between items-center">
+    <div class="flex flex-row justify-between items-center flex-wrap my-4">
         <div>
             <p v-html="exercise && exercise.group" class="uppercase text-sm text-grey-darkest mb-1" />
             <p class="text-3xl font-semibold mb-4" v-html="exercise && exercise.name" />
         </div>
+        <div class="flex">
+            <correlation-sets class="text-2xl" :sets="sets" />
+            <div class="relative ml-2">
+                <a-select v-model="days">
+                    <option :value="31">One month</option>
+                    <option :value="186">Half year</option>
+                    <option :value="365">One year</option>
+                    <option :value="365 * 2">Two years</option>
+                    <option :value="365 * 5">Five years</option>
+                </a-select>
+                <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darker"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="fill-current h-4 w-4"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"></path></svg></div>
+            </div>
+        </div>
+
     </div>
-    <statistics-chart class="flex-auto" :exerciseId="exerciseId" />
-    <statistics-personal-records class="flex-auto" :exerciseId="exerciseId" /> 
+    <o-statistics-chart class="flex-auto" :sets="sets" />
+    <div class="flex-auto">
+        <o-statistics-personal-records class="w-2/3" :sets="sets" />
+        <div class="w-1/3">
+        </div>
+    </div>
 </div>
 </template>
 
 <script>
 import {
-    db
+    db,
+    userId
 } from '@/api/firebase'
 
 export default {
     data: () => ({
-        exercise: null
+        exercise: null,
+        sets: [],
+        days: 186
     }),
+    watch: {
+        days(val) {
+            this.$bind('sets', this.setsRef);
+        }
+    },
     computed: {
+        setsRef() {
+            return db
+                .collection('sets')
+                .where('exerciseId', '==', this.exerciseId)
+                .where('userId', '==', userId)
+                .where('created', '>', moment().add(parseInt(this.days) * -1, 'd').toDate());
+        },
         exerciseId() {
             return this.$route.params.exercise_id;
         }
     },
     firestore() {
         return {
-            exercise: db.collection('exercises').doc(this.exerciseId)
+            exercise: db.collection('exercises').doc(this.exerciseId),
+            sets: this.setsRef
         }
     }
 }

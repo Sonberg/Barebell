@@ -6,23 +6,24 @@
     </div>
 
     <div class="w-full md:w-1/2 lg:w-2/5 flex flex-col my-12 border p-8 bg-white">
-        <auth-login v-if="tab == 'login'">
+        <m-auth-login v-if="tab == 'login'">
             <a-button @click="tab = 'sign-up'" background="white" text="indigo">I'm a new user</a-button>
-        </auth-login>
-        <auth-sign-up v-if="tab == 'sign-up'">
+        </m-auth-login>
+        <m-auth-sign-up v-if="tab == 'sign-up'">
             <a-button @click="tab = 'login'" background="white" text="indigo">Login</a-button>
-        </auth-sign-up>
+        </m-auth-sign-up>
     </div>
 </div>
 </template>
 
 <script>
+
 export default {
-    props: {
-        user: Object
-    },
     data: () => ({
         tab: 'sign-up'
-    })
+    }),
+    props: {
+        user: Object
+    }
 }
 </script>

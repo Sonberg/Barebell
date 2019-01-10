@@ -1,5 +1,5 @@
 <template>
-<div :class="{'opacity-50 hidden sm:block' : disabled }">
+<a-card :class="{'opacity-50 hidden sm:block' : disabled }">
     <div :class="['p-6 flex flex-col bg-white text-center border', disabled ? 'cursor-not-allowed': 'cursor-pointer']" @click="show">
         <div>
             <p v-html="exercise.group" class="uppercase text-xs text-grey-darkest mb-1" />
@@ -10,7 +10,7 @@
             <trend :data="data" :gradient="['#6574cd']" stroke-width="3" />
         </div>
     </div>
-</div>
+</a-card>
 </template>
 
 <script>

@@ -7,7 +7,7 @@ export default {
     },
     computed: {
         inputClasses() {
-            return 'py-2 px-4 bg-grey-light focus:bg-white border-2 border-grey-light outline-none';
+            return 'py-2 px-4 bg-grey-light focus:bg-white border-2 border-grey-light outline-none rounded-none';
         }
     },
     mounted() {

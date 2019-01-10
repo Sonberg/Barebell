@@ -1,5 +1,6 @@
 <template>
 <div>
+    <div class="border-b fixed w-full bg-grey-lightest z-50 ">
         <div class="container mx-auto my-2 flex flex-row justify-between">
             <div class="flex flex-row items-center">
                 <router-link to="/" class="font-bold p-4 text-xl text-black no-underline">Barebell</router-link>
@@ -11,16 +12,13 @@
                     <v-icon name="chart-line" class="mr-2" />
                     <span class="hidden sm:flex">Statistics</span>
                 </router-link>
-                <router-link to="/statistics" class="main text-black p-4 font-semibold no-underline flex flex-row items-center" v-if="isAuthenticated">
-                    <v-icon name="clipboard-list" class="mr-2" />
-                    <span class="hidden sm:flex">Programs</span>
-                </router-link>
             </div>
             <div class="flex items-center justify-center">
                 <v-icon name="user" class="text-black no-underline mr-4" @click="logout" v-if="user && user.displayName" />
             </div>
         </div>
-    <div class="container mx-auto px-4">
+    </div>
+    <div class="container mx-auto px-4 pt-20">
         <router-view :user="user" />
     </div>
 </div>

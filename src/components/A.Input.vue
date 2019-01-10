@@ -5,11 +5,13 @@ export default {
         tag: String,
         type: String,
         autofocus: Boolean,
+        max: String,
+        min: String,
         value: {}
     },
     computed: {
         inputClasses() {
-            return 'py-2 px-4 bg-grey-light focus:bg-white border-2 border-grey-light outline-none';
+            return 'py-2 px-4 bg-grey-light focus:bg-white border-2 border-grey-light outline-none rounded-none';
         }
     },
     mounted() {
