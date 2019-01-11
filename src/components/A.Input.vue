@@ -48,3 +48,11 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+</style>

@@ -6,7 +6,6 @@
 </template>
 
 <script>
-
 import {
     oneRM,
     validSet,
@@ -123,3 +122,17 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+* {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    outline: none;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+    /* mobile webkit */
+}
+</style>

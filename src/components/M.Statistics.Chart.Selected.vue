@@ -4,19 +4,19 @@
         <a-title class="py-3 font-semibold" v-html="date" />
     </div>
     <a-card-wrapper class="w-full mb-4">
-        <a-card class="flex flex-col" md="1/4">
+        <a-card class="flex flex-col items-center" default="1/2" md="1/4">
             <a-label value="Weight" />
             <p class="py-3 text-3xl font-semibold" v-html="weight" />
         </a-card>
-        <a-card class="flex flex-col" md="1/4">
+        <a-card class="flex flex-col items-center" default="1/2" md="1/4">
             <a-label value="Reps" />
             <p class="py-3 text-3xl font-semibold" v-html="reps" />
         </a-card>
-        <a-card class="flex flex-col" md="1/4">
+        <a-card class="flex flex-col items-center" default="1/2" md="1/4">
             <a-label value="1RM" />
-            <p class="py-3 text-3xl font-semibold" v-html="oneRm" />
+            <p class="py-3 text-3xl font-semibold" default="1/2" v-html="oneRm" />
         </a-card>
-        <a-card class="flex flex-col" md="1/4">
+        <a-card class="flex flex-col items-center" default="1/2" md="1/4">
             <a-label value="Volym" />
             <p class="py-3 text-3xl font-semibold" v-html="volym" />
         </a-card>

@@ -41,3 +41,12 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+textarea {
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-appearance: none;
+    box-shadow: none !important;
+}
+</style>

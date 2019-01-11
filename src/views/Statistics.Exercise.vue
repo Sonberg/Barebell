@@ -7,7 +7,7 @@
         </div>
         <div class="flex">
             <correlation-sets class="text-2xl" :sets="sets" />
-            <div class="relative ml-2">
+            <div class="relative ml-2 hidden sm:block">
                 <a-select v-model="days">
                     <option :value="31">One month</option>
                     <option :value="186">Half year</option>
@@ -22,7 +22,7 @@
     </div>
     <o-statistics-chart class="flex-auto" :sets="sets" />
     <div class="flex-auto">
-        <o-statistics-personal-records class="w-2/3" :sets="sets" />
+        <o-statistics-personal-records class="w-full md:w-2/3" :sets="sets" />
         <div class="w-1/3">
         </div>
     </div>
