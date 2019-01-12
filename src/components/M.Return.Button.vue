@@ -1,5 +1,5 @@
 <template>
-    <a-icon-button tag="router-link" v-if="returnUrl" :to="returnUrl" class="block sm:hidden" name="chevron-left"/>
+    <a-button-icon tag="router-link" v-if="returnUrl" :to="returnUrl" class="block sm:hidden" name="chevron-left"/>
 </template>
 
 <script>

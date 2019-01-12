@@ -15,12 +15,12 @@
                     <option :value="365 * 2">Two years</option>
                     <option :value="365 * 5">Five years</option>
                 </a-select>
-                <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darker"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="fill-current h-4 w-4"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"></path></svg></div>
+                <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 mb-1 text-grey-darker"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="fill-current h-4 w-4"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"></path></svg></div>
             </div>
         </div>
 
     </div>
-    <o-statistics-chart class="flex-auto" :sets="sets" />
+    <o-statistics-chart class="flex-auto" :sets="sets" :workouts="workouts" />
     <div class="flex-auto">
         <o-statistics-personal-records class="w-full md:w-2/3" :sets="sets" />
         <div class="w-1/3">
@@ -38,12 +38,14 @@ import {
 export default {
     data: () => ({
         exercise: null,
+        workouts: [],
         sets: [],
         days: 186
     }),
     watch: {
         days(val) {
             this.$bind('sets', this.setsRef);
+            this.$bind('workouts', this.workoutsRef);
         }
     },
     computed: {
@@ -54,6 +56,12 @@ export default {
                 .where('userId', '==', userId)
                 .where('created', '>', moment().add(parseInt(this.days) * -1, 'd').toDate());
         },
+        workoutsRef() {
+            return db
+                .collection('workouts')
+                .where('userId', '==', userId)
+                .where('date', '>', moment().add(parseInt(this.days) * -1, 'd').toDate());
+        },
         exerciseId() {
             return this.$route.params.exercise_id;
         }
@@ -61,6 +69,7 @@ export default {
     firestore() {
         return {
             exercise: db.collection('exercises').doc(this.exerciseId),
+            workouts: this.workoutsRef,
             sets: this.setsRef
         }
     }

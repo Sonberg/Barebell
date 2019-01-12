@@ -2,7 +2,7 @@
 <div>
     <a-title>Choose exercise</a-title>
     <a-card-wrapper>
-        <o-card-exercise v-for="exercise in exercises" :key="exercise.id" :exercise="exercise" />
+        <o-card-exercise v-for="exercise in exercises" :key="exercise.id" :exercise="exercise" @select="select" />
     </a-card-wrapper>
 </div>
 </template>
@@ -28,6 +28,11 @@ export default {
         },
         exercises() {
             return sortBy([...this.privateExercises, ...this.publicExercises], ['group', 'name']);
+        }
+    },
+    methods: {
+        select(exerciseId) {
+            console.log(exerciseId);
         }
     },
     firestore() {

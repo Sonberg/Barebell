@@ -10,6 +10,20 @@ export const highestOneRM = (sets) => Math.round(max(sets.map(oneRM)) || 0, 2);
 
 export const validSet = ({ weight, reps }) => weight > 0 && reps > 0;
 
+// Weight
+export const displayWeight = (weight) => {
+    if(!weight) {
+        return '-';
+    }
+    
+    if (weight >= 1000) {
+        return `${(weight / 1000).toFixed(2).replace(/\.0+$/,'')} ton`;
+    }
+    
+    return `${weight.toFixed(2).replace(/\.0+$/,'')} kg`;
+}
+
+
 // Dates
 export const toMoment = (date) => moment(date.toDate ? date.toDate() : new Date(date))
 
@@ -19,8 +33,11 @@ export const displayDate = (date) => {
     let val = toMoment(date);
     let daysAgo = moment().diff(val, 'days');
 
-    if (daysAgo < 3) {
-        return val.format(`[${!daysAgo ? 'Today': 'Yesterday'}], D MMM`);
+    switch (daysAgo) {
+        case 0:
+            return val.format(`[Today], D MMM`);
+        case 1:
+            return val.format(`[Yesterday], D MMM`);
     }
     
     return val.format('YYYY-MM-DD');

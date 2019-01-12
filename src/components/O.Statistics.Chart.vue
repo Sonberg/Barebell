@@ -1,7 +1,15 @@
 <template>
-<div class="flex flex-col items-center flex-auto" v-if="workouts && workouts.length">
-    <line-chart ref="chart" :chart-data="collection" class="w-full" @hover="setLastSelected" v-if="collection && collection.datasets" />
-    <m-statistics-chart-selected :item="lastSelected" class="w-full" />
+<div class="border bg-white" v-if="workoutsWithSets && workoutsWithSets.length">
+    <div class="flex flex-row flex-auto flex-wrap">
+        <div class="w-full md:w-3/4 flex flex-col">
+            <line-chart ref="chart" class="overflow-hidden" :chart-data="collection" @hover="setLastSelected" v-if="collection && collection.datasets" />
+            <div class="bg-white border-b md:border-b-0 flex-1 items-center  md:border-r p-4 w-full flex flex-row">
+                <a-button-toggle class="mr-4" @click="show.volym = !show.volym" :state="show.volym" color="indigo">Volym</a-button-toggle>
+                <a-button-toggle @click="show.oneRm = !show.oneRm" color="green" :state="show.oneRm">One rep max</a-button-toggle>
+            </div>
+        </div>
+        <m-statistics-chart-selected :item="lastSelected" class="w-full md:w-1/4 p-4 md:pl-4 flex flex-row md:flex-col justify-between" />
+    </div>
 </div>
 </template>
 
@@ -9,26 +17,29 @@
 import {
     oneRM,
     validSet,
-    volym
+    volym,
+    displayDate
 } from '@/helpers'
 
 import {
     groupBy,
-    max
+    sortBy,
+    max,
+    find
 } from 'lodash'
 
 export default {
     data: () => ({
         show: {
             oneRm: false,
-            volym: true,
-            highestWeight: true
+            volym: true
         },
         collection: null,
         lastSelected: null
     }),
     props: {
-        sets: Array
+        sets: Array,
+        workouts: Array
     },
     watch: {
         sets() {
@@ -42,21 +53,25 @@ export default {
         }
     },
     computed: {
-        workouts() {
+        workoutsWithSets() {
             let validSets = this.sets.filter(validSet);
-
-            return Object.values(groupBy(validSets, x => x.workoutId))
+            let sets = Object.values(groupBy(validSets, x => x.workoutId))
                 .map(this.transform)
                 .filter(x => x != null);
+
+            return sortBy(sets, ['date']);
         },
-        active() {
-            return this.lastSelected || this.workouts[this.workouts.length - 1];
-        }
+        date() {
+            if (this.lastSelected && this.lastSelected.date) {
+                return displayDate(this.lastSelected.date);
+            }
+            return '-';
+        },
     },
     methods: {
         getCollection() {
             let collection = {
-                labels: this.workouts.map(x => x.workoutId),
+                labels: this.workoutsWithSets.map(x => x.workoutId),
                 datasets: []
             };
 
@@ -66,7 +81,7 @@ export default {
                     borderWidth: 4,
                     borderDash: [10, 5],
                     backgroundColor: 'rgba(56, 193, 114, .2)',
-                    data: this.workouts.map(x => x.oneRm)
+                    data: this.workoutsWithSets.map(x => x.oneRm)
                 });
             }
 
@@ -75,16 +90,7 @@ export default {
                     borderColor: '#6574cd',
                     borderWidth: 4,
                     backgroundColor: 'rgba(101, 116, 205, 0.2)',
-                    data: this.workouts.map(x => x.volym)
-                });
-            }
-
-            if (this.show.highestWeight) {
-                collection.datasets.push({
-                    borderColor: '#e3342f',
-                    borderWidth: 4,
-                    backgroundColor: 'rgba(227, 52, 47, 0.2)',
-                    data: this.workouts.map(x => x.highestWeight)
+                    data: this.workoutsWithSets.map(x => x.volym)
                 });
             }
 
@@ -99,22 +105,20 @@ export default {
                 oneRm: oneRM(x)
             }));
 
+            let maxSet = max(sets, x => x.oneRm);
+            let workout = find(this.workouts, w => w.id == maxSet.workoutId);
+
             return {
-                ...max(sets, x => x.oneRm),
+                ...maxSet,
                 volym: this.getVolymFrom(sets),
-            }
+                date: workout ? workout.date.toDate() : null
+            };
         },
         getVolymFrom(sets) {
             return sets.reduce((x, y) => x + volym(y), 0);
         },
-        setLastSelected(val) {
-            if (!val || !val._index) {
-                val = {
-                    _index: this.workouts.length - 1
-                }
-            }
-
-            this.lastSelected = this.workouts[val._index];
+        setLastSelected(index) {
+            this.lastSelected = this.workoutsWithSets[index];
         }
     },
     mounted() {

@@ -108,7 +108,12 @@ export default {
     },
     methods: {
         setActive(e) {
-            this.$emit('hover', this.$data._chart.tooltip._active ? this.$data._chart.tooltip._active[0] : null)
+            let tooltip = this.$data._chart.tooltip;
+            let index = tooltip._active && tooltip._active[0] && tooltip._active[0]._index;
+            
+            if (index => 0) {
+                this.$emit('hover', index)
+            }
         }
     },
     mounted() {

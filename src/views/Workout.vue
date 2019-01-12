@@ -1,6 +1,6 @@
 <template>
 <div v-if="workout" class="mb-4 flex flex-col items-start">
-    <input type="text" v-model="workout.name" class="text-3xl rounded-none py-2 my-4 bg-grey-lightest font-semibold outline-none border-b-4 border-indigo-dark focus:border-indigo w-full" placeholder="Träningspass">
+    <input type="text" v-model="workout.name" class="text-3xl rounded-none py-2 my-4 bg-grey-lightest font-semibold outline-none border-b-4 border-indigo-dark focus:border-indigo w-full" :placeholder="placeholder">
     <div class="flex w-full flex-col">
         <a-input type="date" v-model="date" label="Date" :max="today"/>
         <a-textarea v-model="workout.note" label="Note" class="flex-1 h-36 mt-2 "/>
@@ -22,7 +22,7 @@ import {
     debounce
 } from 'lodash'
 
-import { inputDate } from '@/helpers'
+import { inputDate, displayArray } from '@/helpers'
 
 export default {
     data: () => ({
@@ -57,6 +57,9 @@ export default {
         },
         updateDebounce() {
             return debounce(this.update, 600);
+        },
+        placeholder() {
+            return displayArray(this.exercises.map(x => x.group)) || 'Workout';
         },
         exercises() {
             if (!this.workout || !this.allExercises.length) {

@@ -1,8 +1,6 @@
 <template>
-<div class="flex flex-row border-t py-4 px-4 justify-start flex-wrap" v-if="sets && sets.length">
-    <div class="mx-4 sm:mx-6">
-        <p v-html="reps" class="text-4xl font-semibold" />
-    </div>
+<div class="flex flex-row bg-white py-4 px-4 justify-start flex-wrap my-2 border items-center" v-if="sets && sets.length">
+    <a-badge v-html="reps"/>
     <div class="mx-4 sm:mx-6">
         <a-label value="Weight" />
         <p v-html="maxLift.weight + ' kg'" class="text-xl" />

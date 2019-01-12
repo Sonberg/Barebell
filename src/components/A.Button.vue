@@ -13,15 +13,15 @@ export default {
             type: String,
             default: 'white'
         },
-        background: {
+        color: {
             type: String,
-            default: 'indigo-dark'
+            default: 'indigo'
         },
         to: {}
     },
     computed: {
         classes() {
-            return `flex items-center bg-${this.background} text-${this.text} p-3 no-underline rounded-none hover:text-white hover:bg-indigo font-semibold text-xs uppercase`
+            return `flex items-center bg-${this.color}-dark text-${this.text} p-3 no-underline rounded-none hover:text-${this.text}-dark hover:bg-${this.color} font-semibold text-xs uppercase`
         }
     }
 }

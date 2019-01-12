@@ -17,15 +17,15 @@
         <div class="flex flex-row justify-between p-4 border-t">
             <div></div>
             <div class="flex flex-row">
-                <a-icon-button name="edit" tag="router-link" class="mr-2" :to="editLink">
-                    Edit
-                </a-icon-button>
-                <a-icon-button tag="router-link" name="chart-line" class="mr-2" :to="statisticsLink">
+                <a-button-icon name="edit" tag="router-link" class="mr-2" :to="editLink">
+                    Change exercise
+                </a-button-icon>
+                <a-button-icon tag="router-link" name="chart-line" class="mr-2" :to="statisticsLink">
                     Statistics
-                </a-icon-button>
-                <a-icon-button name="plus" @click="add">
+                </a-button-icon>
+                <a-button-icon name="plus" @click="add">
                     Add set
-                </a-icon-button>
+                </a-button-icon>
             </div>
         </div>
     </div>

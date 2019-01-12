@@ -26,13 +26,18 @@ export const createSet = ({ exerciseId, workoutId, reps, weight }) => db.collect
     exerciseId,
     workoutId,
     userId,
+    reps: isNaN(reps) ? NaN : reps,
+    weight: isNaN(weight) ? NaN : weight,
     created: moment().toDate(),
     updated: null,
-    reps: reps || 0,
-    weight: weight || 0
 });
 
-export const updateSet = ({ id, weight, reps }) => db.collection('sets').doc(id).update({ weight, reps, userId, updated: moment().format() });
+export const updateSet = ({ id, weight, reps }) => db.collection('sets').doc(id).update({ 
+    reps: isNaN(reps) ? NaN : reps,
+    weight: isNaN(weight) ? NaN : weight,
+    userId, 
+    updated: moment().format() 
+    });
 export const deleteSet = (id) => db.collection('sets').doc(id).delete();
 
 

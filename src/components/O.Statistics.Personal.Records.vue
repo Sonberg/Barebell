@@ -1,21 +1,18 @@
 <template>
-<div class="bg-white border" v-if="keys && keys.length">
-    <div class="px-4">
-        <a-title size="xl">Personal records</a-title>
-    </div>
-    <div class="border-t-4">
-        <m-statistics-personal-records-item v-for="key in keys" :key="key" :reps="key" :sets="groupedByReps[key]"/>
-    </div>
+<div class="flex flex-col" v-if="keys && keys.length">
+    <a-title size="2xl" class="mb-2 mt-8">Personal records</a-title>
+    <m-statistics-personal-records-item v-for="key in keys" :key="key" :reps="key" :sets="groupedByReps[key]" />
 </div>
 </template>
 
 <script>
-
 import {
     groupBy
 } from 'lodash'
 
-import { validSet } from '@/helpers'
+import {
+    validSet
+} from '@/helpers'
 
 export default {
     props: {
