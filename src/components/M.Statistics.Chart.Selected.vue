@@ -1,22 +1,22 @@
 <template>
     <div class="flex-wrap">
-        <div class="py-4 md:p-4 w-1/2 md:w-full">
+        <div class="py-4 md:p-4 w-full md:w-1/5">
                 <a-label value="Date" />
                 <p class="text-3xl font-semibold " v-html="date" />
             </div>
-            <div class="py-4 md:p-4 w-1/2 md:w-full">
+            <div class="py-4 md:p-4 w-1/2 md:w-1/5">
                 <a-label value="Weight" />
                 <p class="text-3xl font-semibold " v-html="weight" />
             </div>
-            <div class="py-4 md:p-4 w-1/2 md:w-full">
+            <div class="py-4 md:p-4 w-1/2 md:w-1/5">
                 <a-label value="Reps"/>
                 <p class="text-3xl font-semibold" v-html="reps" />
             </div>
-            <div class="py-4 md:p-4 w-1/2 md:w-full">
+            <div class="py-4 md:p-4 w-1/2 md:w-1/5">
                 <a-label value="1RM" />
                 <p class="text-3xl font-semibold" v-html="oneRm" />
             </div>
-            <div class="py-4 md:p-4 w-1/2 md:w-full">
+            <div class="py-4 md:p-4 w-1/2 md:w-1/5">
                 <a-label value="Volym"  />
                 <p class="text-3xl font-semibold" v-html="volym" />
             </div>

@@ -1,14 +1,12 @@
 <template>
 <div class="border bg-white" v-if="workoutsWithSets && workoutsWithSets.length">
-    <div class="flex flex-row flex-auto flex-wrap">
-        <div class="w-full md:w-3/4 flex flex-col">
+    <div class="flex flex-col flex-auto flex-wrap">
             <line-chart ref="chart" class="overflow-hidden" :chart-data="collection" @hover="setLastSelected" v-if="collection && collection.datasets" />
-            <div class="bg-white border-b md:border-b-0 flex-1 items-center  md:border-r p-4 w-full flex flex-row">
+            <div class="bg-white border-b  flex-1 items-center p-4 w-full flex flex-row">
                 <a-button-toggle class="mr-4" @click="show.volym = !show.volym" :state="show.volym" color="indigo">Volym</a-button-toggle>
                 <a-button-toggle @click="show.oneRm = !show.oneRm" color="green" :state="show.oneRm">One rep max</a-button-toggle>
             </div>
-        </div>
-        <m-statistics-chart-selected :item="lastSelected" class="w-full md:w-1/4 p-4 md:pl-4 flex flex-row md:flex-col justify-between" />
+        <m-statistics-chart-selected :item="lastSelected" class="w-full p-4 flex flex-row justify-between" />
     </div>
 </div>
 </template>
@@ -24,7 +22,7 @@ import {
 import {
     groupBy,
     sortBy,
-    max,
+    maxBy,
     find
 } from 'lodash'
 
@@ -104,8 +102,8 @@ export default {
             sets = sets.map(x => ({ ...x,
                 oneRm: oneRM(x)
             }));
-
-            let maxSet = max(sets, x => x.oneRm);
+        
+            let maxSet = maxBy(sets, x => x.oneRm);
             let workout = find(this.workouts, w => w.id == maxSet.workoutId);
 
             return {

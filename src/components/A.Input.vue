@@ -1,8 +1,19 @@
+<template>
+    <div>
+        <a-label v-html="label"/>
+        <component :is="tag" :class="classes" v-bind="$props" v-on="$listeners"  :value="value" @input="onInput" v-html="value" />
+    </div>
+</template>
+
+
 <script>
 export default {
     props: {
         label: String,
-        tag: String,
+        tag: {
+            type: String,
+            default: 'input'
+        },
         type: String,
         autofocus: Boolean,
         max: String,
@@ -10,41 +21,19 @@ export default {
         value: {}
     },
     computed: {
-        inputClasses() {
-            return 'py-2 px-4 bg-grey-light focus:bg-white border-2 border-grey-light outline-none rounded-none';
+        classes() {
+            return 'py-2 px-4 bg-grey-light focus:bg-white border-2 border-grey-light outline-none rounded-none w-full';
+        }
+    },
+    methods: {
+        onInput(val) {
+            this.$emit('input', val);
         }
     },
     mounted() {
         if (this.autofocus) {
             this.$refs['input'].focus();
         }
-    },
-    render(h) {
-        return h(
-            "div", {
-                class: "flex flex-col"
-            },
-            [
-                h("a-label", {
-                    props: {
-                        value: this.label
-                    }
-                }),
-                h(
-                    this.tag || 'input', {
-                        class: this.inputClasses,
-                        ref: 'input',
-                        domProps: Object.assign(this.$props, {
-                            value: this.value
-                        }),
-                        on: {
-                            input: e => this.$emit('input', e.target.value)
-                        }
-                    },
-                    this.value
-                )
-            ]
-        );
     }
 };
 </script>

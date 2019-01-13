@@ -30,8 +30,8 @@ export const toMoment = (date) => moment(date.toDate ? date.toDate() : new Date(
 export const inputDate = (date) => toMoment(date).format('YYYY-MM-DD');
 
 export const displayDate = (date) => {
-    let val = toMoment(date);
-    let daysAgo = moment().diff(val, 'days');
+    let val = toMoment(date).startOf('day');
+    let daysAgo = moment().startOf('day').diff(val, 'days');
 
     switch (daysAgo) {
         case 0:

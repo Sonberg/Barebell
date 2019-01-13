@@ -2,18 +2,9 @@
 <div class="mt-4 bg-white border" v-if="item">
     <div class="px-4 flex flex-row  justify-between items-center" @click="toggle">
         <a-title size="xl" v-html="item.name"/>
-        <div class="flex flex-row" v-if="false">
-            <div class="hidden sm:flex flex-col">
-                <a-label value="Number of sets"/>
-                <p v-html="sets.length || 0" />
-            </div>
-            <p label="Total volym" class="mr-4" tag="p" :value="volym" disabled />
-            <p label="Highest 1RM" tag="p" :value="oneMax" disabled />
-        </div>
     </div>
     <div v-if="open" class="border-t-4">
         <m-exercise-set v-for="(set, index) in sets" :item="set" :index="index + 1" :key="set.id" />
-
         <div class="flex flex-row justify-between p-4 border-t">
             <div></div>
             <div class="flex flex-row">
@@ -39,15 +30,6 @@ import {
     createSet
 } from '@/api/firebase'
 
-import {
-    max
-} from 'lodash'
-
-import {
-    oneRM,
-    volym
-} from '@/helpers'
-
 import moment from 'moment';
 
 export default {
@@ -60,19 +42,6 @@ export default {
         open: true
     }),
     computed: {
-        volym() {
-            return this.sets
-                .map(volym)
-                .filter(x => !isNaN(x))
-                .reduce((res, x) => res + x, 0);
-        },
-        oneMax() {
-            let values = this.sets
-                .map(oneRM)
-                .filter(x => !isNaN(x))
-
-            return (max(values) || 0).toFixed(2);
-        },
         editLink() {
             return `/workouts/${this.workoutId}/sets/${this.item.id}`
         },

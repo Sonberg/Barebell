@@ -16,6 +16,7 @@ export const auth = firebase.auth();
 export const settings = { timestampsInSnapshots: true };
 export let userId = null;
 
+auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 auth.onAuthStateChanged(x =>  userId = auth.currentUser && auth.currentUser.uid);
 
 db.settings(settings);
