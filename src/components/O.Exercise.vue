@@ -43,7 +43,7 @@ export default {
     }),
     computed: {
         editLink() {
-            return `/workouts/${this.workoutId}/sets/${this.item.id}`
+            return `/logs/${this.item.id}`
         },
         statisticsLink() {
             return `/statistics/${this.item.id}`

@@ -1,10 +1,7 @@
 <template>
-<div class="flex flex-col mb-16">
-    <div class="flex flex-row justify-between items-center flex-wrap my-4">
-        <div>
-            <p v-html="exercise && exercise.group" class="uppercase text-sm text-grey-darkest mb-1" />
-            <p class="text-3xl font-semibold mb-4" v-html="exercise && exercise.name" />
-        </div>
+<div class="flex flex-col mb-16" v-if="exercise">
+    
+    <o-header :title="exercise.name" :sub-title="exercise.group">
         <div class="flex">
             <correlation-sets class="text-2xl" :sets="sets" />
             <div class="relative ml-2 hidden sm:block">
@@ -18,8 +15,8 @@
                 <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 mb-1 text-grey-darker"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="fill-current h-4 w-4"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"></path></svg></div>
             </div>
         </div>
+    </o-header>
 
-    </div>
     <o-statistics-chart class="flex-auto" :sets="sets" :workouts="workouts" />
     <div class="flex-auto">
         <o-statistics-personal-records class="w-full md:w-2/3" :sets="sets" />

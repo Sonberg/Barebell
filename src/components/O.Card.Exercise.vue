@@ -1,7 +1,7 @@
 <template>
-<a-card @click="$emit('select', exercise.id)">
-    <div :class="['px-6 py-12 flex flex-col bg-white text-center border hover:bg-grey-lightest']">
-        <p v-html="exercise.group" class="uppercase text-xs text-grey-darkest mb-1" />
+<a-card>
+    <div :class="classes" @click="click">
+        <p v-html="exercise.group" :class="labelClasses" />
         <p v-html="exercise.name" class="text-xl" />
         <v-icon name="user" v-if="exercise.userId"/>
     </div>
@@ -13,6 +13,19 @@ export default {
     props: {
         exercise: Object,
         active: Boolean
+    },
+    computed: {
+        classes() {
+            return ['p-6 flex flex-col border', this.active ? 'bg-indigo-dark hover:bg-indigo text-white' : 'bg-white hover:bg-grey-lightest'];
+        },
+        labelClasses() {    
+            return ['uppercase text-xs mb-1', this.active ? 'text-grey-lightest': 'text-grey-darkest'];
+        }
+    },
+    methods: {
+        click() {
+            this.$emit('select', this.exercise.id);
+        }
     }
 }
 </script>

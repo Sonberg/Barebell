@@ -1,9 +1,8 @@
 <template>
 <div class="flex flex-col">
-    <div class="flex flex-row justify-between flex-wrap items-center">
-        <a-title>Workouts</a-title>
+    <o-header title="Workouts">
         <a-button  @click="add">New workout</a-button>
-    </div>
+    </o-header>
     <div v-for="week in weeks" :key="week" class="mb-4">
         <a-label :value="titleFor(week)" />
         <m-workout v-for="workout in groupedByWeek[week]" :item="workout" :key="workout.id" />

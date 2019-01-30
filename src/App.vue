@@ -18,7 +18,7 @@
             </div>
         </div>
     </div>
-    <div class="container mx-auto px-4 pt-20">
+    <div class="container mx-auto pt-20 px-4">
         <router-view :user="user" />
     </div>
 </div>
@@ -62,8 +62,6 @@ export default {
         auth.onAuthStateChanged(this.onAuthStateChanged);
     },
     firestore() {
-        console.log(this.userId);
-
         if (!this.userId) {
             return
         }

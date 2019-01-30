@@ -23,31 +23,41 @@ db.settings(settings);
 //db.enablePersistence();
 
 // Set
-export const createSet = ({ exerciseId, workoutId, reps, weight }) => db.collection('sets').add({
+export const createSet = ({ exerciseId, workoutId, reps, weight, setType }) => db.collection('sets').add({
     exerciseId,
     workoutId,
+    setType,
     userId,
-    reps: isNaN(reps) ? NaN : reps,
-    weight: isNaN(weight) ? NaN : weight,
+    reps,
+    weight,
     created: moment().toDate(),
     updated: null,
 });
 
-export const updateSet = ({ id, weight, reps }) => db.collection('sets').doc(id).update({ 
-    reps: isNaN(reps) ? NaN : reps,
-    weight: isNaN(weight) ? NaN : weight,
-    userId, 
+export const updateSet = ({ id, weight, reps, setType }) => db.collection('sets').doc(id).update({ 
+    reps,
+    weight,
+    setType,
     updated: moment().format() 
     });
+
 export const deleteSet = (id) => db.collection('sets').doc(id).delete();
 
 
 // Log
-export const createLog = ({}) => null
-export const updateLog = ({ id, exercises, workoutId }) => db.collection('logs').doc(id).update({
-    userId,
+export const createLog = ({ exerciseIds, workoutId, logType }) => db.collection('logs').add({
+    exerciseIds: exerciseIds || [],
     workoutId,
-    exercises,
+    userId,
+    logType,
+    created: moment().toDate(),
+    updated: null
+});
+export const updateLog = ({ id, exerciseIds, workoutId, logType }) => db.collection('logs').doc(id).update({
+    userId,
+    logType,
+    workoutId,
+    exerciseIds,
     updated: moment().toDate() 
 });
 export const deleteLog = (id) => db.collection('logs').doc(id).delete();

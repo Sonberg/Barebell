@@ -2,19 +2,25 @@
 <div v-if="workout" class="mb-4 flex flex-col items-start">
     <input type="text" v-model="workout.name" class="text-3xl rounded-none px-0 py-2 my-4 bg-grey-lightest font-semibold outline-none border-b-4 border-indigo-dark focus:border-indigo w-full" :placeholder="placeholder">
     <div class="flex w-full flex-col">
-        <a-input type="date" v-model="date" label="Date" :max="today"/>
-        <a-textarea v-model="workout.note" label="Note" class="flex-1 h-36 mt-2 "/>
+        <a-input type="date" v-model="date" label="Date" :max="today" />
+        <a-textarea v-model="workout.note" label="Note" class="flex-1 h-36 mt-2 " />
     </div>
     <o-exercise v-for="item in exercises" :workoutId="workoutId" :key="item.id" :item="item" class="w-full" />
-    <add-exercise :add="add" class="self-end" />
+    <o-log v-for="log in logs" :log="log" :key="log.id" class="w-full" />
+    <a-button-icon name="plus" class="self-end mt-4" @click="createLog">
+        Add exercise
+    </a-button-icon>
+
 </div>
 </template>
 
 <script>
 import {
     db,
+    userId,
     updateWorkout,
-    createSet
+    createSet,
+    createLog
 } from '@/api/firebase'
 
 import {
@@ -22,12 +28,17 @@ import {
     debounce
 } from 'lodash'
 
-import { inputDate, displayArray } from '@/helpers'
+import {
+    inputDate,
+    displayArray
+} from '@/helpers'
 
 export default {
     data: () => ({
         workout: null,
-        allExercises: []
+        logs: [],
+        allExercises: [],
+        logTypes: []
     }),
     watch: {
         'workout.name'() {
@@ -42,10 +53,10 @@ export default {
     },
     computed: {
         date: {
-            get: function() {      
-                  return inputDate(this.workout.date);
+            get: function () {
+                return inputDate(this.workout.date);
             },
-            set: function(val) {
+            set: function (val) {
                 this.workout.date = moment(val).toDate();
             }
         },
@@ -87,6 +98,11 @@ export default {
                 workoutId: this.workout.id
             });
         },
+        async createLog() {
+            let logType = find(this.logTypes, x => x.default);
+            let result = await createLog({ workoutId: this.workoutId, logType: logType && logType.id });
+            this.$router.push(`/logs/${result.id}`);
+        },
         update() {
             updateWorkout(this.workout);
         },
@@ -97,7 +113,9 @@ export default {
     firestore() {
         return {
             workout: db.collection('workouts').doc(this.workoutId),
-            allExercises: db.collection('exercises')
+            logs: db.collection('logs').where('workoutId', '==', this.workoutId).where('userId', '==', userId),
+            allExercises: db.collection('exercises'),
+            logTypes: db.collection('log-types')
         }
     }
 }

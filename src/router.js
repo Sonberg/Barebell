@@ -33,9 +33,9 @@ const router = new Router({
       }
     },
     {
-      path: '/workouts/:workout_id/sets/:set_id',
-      name: 'workout-set',
-      component: () => import( /* webpackChunkName: "workout-set" */ './views/Workout.Set.vue'),
+      path: '/logs/:log_id',
+      name: 'log',
+      component: () => import( /* webpackChunkName: "workout-log" */ './views/Log.vue'),
       meta: {
         requiresAuth: true
       }
@@ -69,11 +69,16 @@ router.beforeEach((to, from, next) => {
   const currentUser = auth.currentUser;
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 
+  // Is authenticated?
   if (requiresAuth && !currentUser) {
     return next('/');
   }
 
-  return next();
+  // Has return url?
+  if (to.query.returnUrl != from.path) {
+    return next({ path: to.path, query: Object.assign(to.query, { returnUrl: from.path }) });
+  }
+    return next();
 });
 
 export default router;
